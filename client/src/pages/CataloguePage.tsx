@@ -20,6 +20,7 @@ interface Category {
   name: string;
   products: Product[];
 }
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function CataloguePage() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -66,7 +67,7 @@ export default function CataloguePage() {
                 {product.Image?.url && (
                   <Box
                     component="img"
-                    src={`http://localhost:1337${product.Image.url}`}
+                    src={`${apiUrl}${product.Image.url}`}
                     alt={product.Image.name}
                     sx={{
                       width: '100%',
