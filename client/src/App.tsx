@@ -1,43 +1,51 @@
-//import reactLogo from './assets/react.svg'
-//import viteLogo from '/vite.svg'
-import './App.css'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import HomePage from "./pages/CataloguePage";
+import {
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
+
+import { Box, useMediaQuery } from "@mui/material";
+
+import "./App.css";
+
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import Home from "./components/Home/Home";
+import CookieConsentTab from "./components/CookieConsent/CookieConsent";
 import ProductPage from "./pages/ProductPage";
+import { AppThemeProvider } from "./components/Themes/theme";
+
+import { ResponsiveViewContextProvider } from "./components/providers";
+
+
+const PageLayout = () => (
+  <Box>
+    <Header />
+    <Outlet />
+    <Footer />
+  </Box>
+);
+
 function App() {
-  //const [count, setCount] = useState(0)
+  const isMobile = useMediaQuery("(max-width:680px)");
 
   return (
-    <>
-    <BrowserRouter>
+    <ResponsiveViewContextProvider isMobile={isMobile}>
+      <AppThemeProvider
+          //mode="dark"
+        mode="light"
+        >
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products/:slug" element={<ProductPage />} />
+          <Route element={<PageLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/products/:slug" element={<ProductPage />} />
+          </Route>
         </Routes>
-      </BrowserRouter>
-      {/*<div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>*/}
-    </>
-  )
+        <CookieConsentTab />
+        </AppThemeProvider>
+    </ResponsiveViewContextProvider>
+  );
 }
 
-export default App
+export default App;
