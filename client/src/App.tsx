@@ -5,7 +5,7 @@ import {
   Outlet,
 } from "react-router-dom";
 
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 
 import "./App.css";
 
@@ -15,6 +15,7 @@ import Home from "./components/Home/Home";
 import ProductPage from "./pages/ProductPage";
 import { AppThemeProvider } from "./components/Themes/theme";
 
+import { ResponsiveViewContextProvider } from "./components/providers";
 
 
 const PageLayout = () => (
@@ -26,8 +27,10 @@ const PageLayout = () => (
 );
 
 function App() {
+  const isMobile = useMediaQuery("(max-width:680px)");
 
   return (
+    <ResponsiveViewContextProvider isMobile={isMobile}>
       <AppThemeProvider
           //mode="dark"
         mode="light"
@@ -39,6 +42,7 @@ function App() {
           </Route>
         </Routes>
         </AppThemeProvider>
+    </ResponsiveViewContextProvider>
   );
 }
 
