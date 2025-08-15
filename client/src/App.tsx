@@ -12,7 +12,6 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
-import CookieConsentTab from "./components/CookieConsent/CookieConsent";
 import ProductPage from "./pages/ProductPage";
 import { AppThemeProvider } from "./components/Themes/theme";
 
@@ -42,7 +41,6 @@ function App() {
             <Route path="/products/:slug" element={<ProductPage />} />
           </Route>
         </Routes>
-        <CookieConsentTab />
         </AppThemeProvider>
     </ResponsiveViewContextProvider>
   );

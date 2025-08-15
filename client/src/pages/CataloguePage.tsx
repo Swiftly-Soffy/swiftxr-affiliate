@@ -32,7 +32,7 @@ export default function CataloguePage() {
   }, []);
 
   return (
-    <Box>
+    <Box component={'section'} bgcolor="background.neutral">
       {categories?.map((cat) => (
         <Box key={cat.id} mb={5}>
           <Typography
@@ -41,7 +41,7 @@ export default function CataloguePage() {
               fontWeight: 500,
               fontSize: 24,
               mb: 1.5,
-              color: '#b0b0b0',
+              color: 'text.primary',
               fontStyle: 'italic'
             }}>{cat.name}</Typography>
 
