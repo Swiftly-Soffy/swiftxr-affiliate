@@ -11,7 +11,7 @@ import "./App.css";
 
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
-import ProductPage from "./pages/ProductPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 import { AppThemeProvider } from "./components/Themes/theme";
 
 import { ResponsiveViewContextProvider } from "./components/providers";
@@ -35,7 +35,7 @@ function App() {
         <Routes>
           <Route element={<PageLayout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/products/:slug" element={<ProductPage />} />
+            <Route path="/products/:slug" element={<ProductDetailPage />} />
           </Route>
         </Routes>
         </AppThemeProvider>
