@@ -17,7 +17,6 @@ import { AppThemeProvider } from "./components/Themes/theme";
 
 import { ResponsiveViewContextProvider } from "./components/providers";
 
-
 const PageLayout = () => (
   <Box>
     <Header />
@@ -42,7 +41,7 @@ function App() {
           </Route>
         </Routes>
         </AppThemeProvider>
-    </ResponsiveViewContextProvider>
+    </ResponsiveViewContextProvider>    
   );
 }
 
