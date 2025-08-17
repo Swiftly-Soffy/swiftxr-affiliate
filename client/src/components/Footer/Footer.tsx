@@ -17,12 +17,9 @@ const DescriptionCard = ({
   return (
     <Grid size={isMobile ? 12 : 4}>
       <Stack
-        spacing={2}
+      spacing={2}
         sx={{
           borderRadius: 2,
-          width: 1,
-          py: 5,
-          height: 1,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -31,15 +28,16 @@ const DescriptionCard = ({
       >
         <Stack
           sx={{
-            height: 40,
-            width: 40,
+            height: 50,
+            width: 50,
             borderRadius: "50%",
             border: 8,
             borderColor: "background.paper",
             justifyContent: "center",
             alignItems: "center",
-            bgcolor: "background.default",
+            bgcolor: "background.neutral",
             overflow: 'hidden',
+            p: 0.7
           }}
         >
           {icon}
@@ -49,7 +47,7 @@ const DescriptionCard = ({
           {title}
         </Typography>
 
-        <Typography fontSize={14} color="text.secondary" fontWeight={400} width={'70%'}>
+        <Typography fontSize={14} color="text.secondary" fontWeight={400}>
           {description}
         </Typography>
       </Stack>
@@ -75,7 +73,7 @@ function Footer() {
       icon: (
         <Iconify
           icon="game-icons:shopping-cart"
-          sx={{ width: 30, height: 20, color: "text.primary" }}
+          sx={{ width: 30, height: 30, color: "text.primary" }}
         />
       ),
       title: "Seamless Shopping",
@@ -96,8 +94,8 @@ function Footer() {
   ];
 
   return (
-    <Stack component="section" bgcolor="background.default">
-      <Grid container spacing={4}>
+    <Stack component="section" bgcolor="background.neutral" mx={2} my={2} sx={{width: 'auto'}}>
+      <Grid container spacing={8}>
         {CONFIG.map((data, idx) => (
           <DescriptionCard {...data} key={idx} />
         ))}
@@ -106,13 +104,13 @@ function Footer() {
       <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Box
           sx={{
-            width: '95%',
+            width: '100%',
             height: 2,
             margin: 'auto',
             backgroundColor: '#D1D1D1',
           }}
         />
-        <Typography fontSize={14} fontWeight={400} color="text.secondary" textAlign="center" py={4}>
+        <Typography fontSize={14} fontWeight={400} color="text.secondary" textAlign="center" py={1}>
           &copy; Copyright swiftXR 2025. All right reserved
         </Typography>
       </Box>
