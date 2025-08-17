@@ -1,4 +1,5 @@
-import React, { ReactNode, createContext, useContext } from "react";
+import React, { createContext, useContext } from "react";
+import type { ReactNode } from "react";
 
 type ResponsiveViewContextProps = {
     isMobile: boolean
@@ -7,6 +8,7 @@ type ResponsiveViewContextProps = {
 
 const ResponsiveViewContext = createContext<ResponsiveViewContextProps | undefined>(undefined);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useResponsiveViewContext = () => {
     const context = useContext(ResponsiveViewContext);
     if (!context) {
