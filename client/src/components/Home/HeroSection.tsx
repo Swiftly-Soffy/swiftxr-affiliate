@@ -73,7 +73,7 @@ function HeroSection() {
         <Box component={'section'}
             sx={{
                 backgroundPosition: 'left',
-                bgcolor: "background.default",
+                bgcolor: "background.neutral",
                 backgroundImage: `linear-gradient(to right, rgba(255, 182, 193, 0.20) 1px, transparent 1px),
                   linear-gradient(to bottom, rgba(255, 182, 193, 0.20) 1px, transparent 1px)`,
                 backgroundSize: "50px 30px",

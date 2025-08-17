@@ -1,6 +1,6 @@
 import CataloguePage from "../../pages/CataloguePage";
 import HeroSection from "./HeroSection";
-
+import Footer from "../Footer/Footer";
 function Home() {
   return (
     <>
@@ -11,6 +11,7 @@ function Home() {
         />
         <HeroSection />
         <CataloguePage />
+        <Footer />
     </>
   );
 }
