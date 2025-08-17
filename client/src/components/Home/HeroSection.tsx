@@ -86,7 +86,7 @@ function HeroSection() {
 
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 {/* Title */}
-                <Typography fontWeight={700} fontSize={60} mt={-2} pt={10}>
+                <Typography fontWeight={700} fontSize={60} mt={-2} >
                     {slides[index].title}
                 </Typography>
 
