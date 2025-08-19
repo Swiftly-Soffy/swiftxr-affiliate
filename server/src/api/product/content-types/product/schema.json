@@ -48,6 +48,16 @@
     "StoreName": {
       "type": "string",
       "required": true
+    },
+    "Likes": {
+      "type": "integer",
+      "default": 0,
+      "configurable": false
+    },
+    "Views": {
+      "type": "integer",
+      "default": 0,
+      "configurable": false
     }
   }
 }

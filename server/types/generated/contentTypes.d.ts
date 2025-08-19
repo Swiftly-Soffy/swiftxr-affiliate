@@ -592,6 +592,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     Description: Schema.Attribute.Text & Schema.Attribute.Required;
     ExternalUrl: Schema.Attribute.Text & Schema.Attribute.Required;
     Image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    Likes: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -607,6 +608,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    Views: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
   };
 }
 
