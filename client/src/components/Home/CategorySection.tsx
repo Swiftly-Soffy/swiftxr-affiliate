@@ -55,13 +55,11 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
 
     return (
         <Stack direction="column" component="section" spacing={0.4} textAlign="center">
-            {/* Scrollable categories */}
             <Stack
                 ref={scrollRef}
                 direction="row"
                 spacing={2}
                 p={1}
-                justifyContent="center"
                 sx={{
                     overflowX: "auto",
                     scrollBehavior: "smooth",
@@ -72,6 +70,7 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                 <Stack
                     alignItems="center"
                     spacing={1}
+                    justifyContent="center"
                     onClick={() => onSelectCategory(null)}
                     sx={{
                         cursor: "pointer",
@@ -84,11 +83,11 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                                 ? "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)"
                                 : "transparent",
                         transition: "0.3s",
-                        minWidth: isMobile ? 80 : 120,
-                        color: selectedCategory === null ? 'text.neutral' : 'text.primary'
+                        minWidth: isMobile ? 100 : 140,
+                        color: selectedCategory === null ? 'text.neutral' : 'text.primary', 
                     }}
                 >
-                    <Iconify icon="teenyicons:menu-outline" sx={{ width: 40, height: 40 }} />
+                    <Iconify icon="teenyicons:menu-outline" sx={{ height: 40 }} />
                     <Typography fontWeight={400} color={selectedCategory === null ? "text.neutral" : "text.primary"}>
                         All
                     </Typography>
@@ -99,12 +98,13 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                     <Stack
                         key={cat.id}
                         alignItems="center"
+                        justifyContent="center"
                         spacing={1}
                         onClick={() => onSelectCategory(cat.id)}
                         sx={{
                             cursor: "pointer",
                             borderRadius: 1,
-                            p: 2,
+                            p: 1,
                             border: "1px solid",
                             borderColor: "grey.200",
                             background:
@@ -112,7 +112,7 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                                     ? "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)"
                                     : "transparent",
                             transition: "0.3s",
-                            minWidth: isMobile ? 80 : 120,
+                            minWidth: isMobile ? 100 : 140,
                         }}
                     >
                         {cat.Icon?.url ? (
