@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import { Box, Typography, Stack } from "@mui/material";
+import { useEffect, useState, useRef } from "react";
+import { Box, Typography, Stack, IconButton } from "@mui/material";
 import { getCategories } from "../../api";
 import { useResponsiveViewContext } from "../providers";
 
 import Iconify from "../Iconify/iconify";
+
 
 interface Icon {
     url: string;
@@ -27,9 +28,11 @@ type Props = {
     categories: Category[];
 };
 
+
 export default function CategorySection({ selectedCategory, onSelectCategory, }: Props) {
-    const [categories, setCategories] = useState<Category[]>([]);
     const { isMobile } = useResponsiveViewContext();
+
+    const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
         getCategories().then((data) => {
@@ -39,64 +42,102 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
         });
     }, []);
 
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    const scroll = (direction: "left" | "right") => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({
+                left: direction === "left" ? -200 : 200,
+                behavior: "smooth",
+            });
+        }
+    };
+
     return (
-        <Stack direction="row" component="section" spacing={3} p={4} justifyContent="center" flexWrap="wrap">
+        <Stack direction="column" component="section" spacing={0.4} textAlign="center">
+            {/* Scrollable categories */}
             <Stack
-                alignItems="center"
-                spacing={1}
-                onClick={() => onSelectCategory(null)}
+                ref={scrollRef}
+                direction="row"
+                spacing={2}
+                p={1}
+                justifyContent="center"
                 sx={{
-                    cursor: "pointer",
-                    borderRadius: 1,
-                    p: 2,
-                    border: '1px solid',
-                    borderColor: 'grey.200',
-                    background:
-                        selectedCategory === null
-                            ? "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)"
-                            : "transparent",
-                    transition: "0.3s",
-                    minWidth: isMobile ? 80 : 120,
+                    overflowX: "auto",
+                    scrollBehavior: "smooth",
+                    "&::-webkit-scrollbar": { display: "none" },
                 }}
             >
-                <Iconify icon="teenyicons:menu-outline" sx={{ width: 40, height: 40, color: 'text.neutral', paddingBottom: '10px' }} />
-                <Typography fontWeight={400} color={selectedCategory === null ? "white" : "text.primary"}>All</Typography>
-            </Stack>
-
-            {/* other categories */}
-            {categories.map((cat) => (
+                {/* "All" category */}
                 <Stack
-                    key={cat.id}
                     alignItems="center"
                     spacing={1}
-                    onClick={() => onSelectCategory(cat.id)} // 
+                    onClick={() => onSelectCategory(null)}
                     sx={{
                         cursor: "pointer",
                         borderRadius: 1,
                         p: 2,
-                        border: '1px solid',
-                        borderColor: 'grey.200',
+                        border: "1px solid",
+                        borderColor: "grey.200",
                         background:
-                            selectedCategory === cat.id
+                            selectedCategory === null
                                 ? "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)"
                                 : "transparent",
                         transition: "0.3s",
                         minWidth: isMobile ? 80 : 120,
+                        color: selectedCategory === null ? 'text.neutral' : 'text.primary'
                     }}
                 >
-                    {cat.Icon?.url ? (
-                        <img
-                            src={`${import.meta.env.VITE_API_URL}${cat.Icon.url}`}
-                            alt={cat.Icon.name}
-                            style={{ width: 40, height: 40, objectFit: "contain", paddingBottom: 10 }}
-                        />
-                    ) : (
-                        <Box sx={{ width: 40, height: 40, bgcolor: "grey.300", borderRadius: "50%" }} />
-                    )}
-                    <Typography fontWeight={600}>{cat.name}</Typography>
+                    <Iconify icon="teenyicons:menu-outline" sx={{ width: 40, height: 40 }} />
+                    <Typography fontWeight={400} color={selectedCategory === null ? "text.neutral" : "text.primary"}>
+                        All
+                    </Typography>
                 </Stack>
-            ))}
 
+                {/* Other categories */}
+                {categories.map((cat) => (
+                    <Stack
+                        key={cat.id}
+                        alignItems="center"
+                        spacing={1}
+                        onClick={() => onSelectCategory(cat.id)}
+                        sx={{
+                            cursor: "pointer",
+                            borderRadius: 1,
+                            p: 2,
+                            border: "1px solid",
+                            borderColor: "grey.200",
+                            background:
+                                selectedCategory === cat.id
+                                    ? "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)"
+                                    : "transparent",
+                            transition: "0.3s",
+                            minWidth: isMobile ? 80 : 120,
+                        }}
+                    >
+                        {cat.Icon?.url ? (
+                            <img
+                                src={`${import.meta.env.VITE_API_URL}${cat.Icon.url}`}
+                                alt={cat.Icon.name}
+                                style={{ width: 40, height: 40, objectFit: "contain"}}
+                            />
+                        ) : (
+                            <Box sx={{ width: 40, height: 40, bgcolor: "grey.300", borderRadius: "50%" }} />
+                        )}
+                        <Typography fontWeight={600}>{cat.name}</Typography>
+                    </Stack>
+                ))}
+            </Stack>
+
+            {/* Arrows */}
+            <Stack direction="row" justifyContent="center">
+                <IconButton onClick={() => scroll("left")}>
+                    <Iconify icon="akar-icons:arrow-left" sx={{ width: 28, height: 24 }}  />
+                </IconButton>
+                <IconButton onClick={() => scroll("right")}>
+                    <Iconify icon="akar-icons:arrow-right" sx={{ width: 28, height: 24 }} />
+                </IconButton>
+            </Stack>
         </Stack>
     );
 }

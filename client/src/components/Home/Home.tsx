@@ -8,6 +8,7 @@ import CategorySection from "./CategorySection";
 import { getProductCategories } from "../../api";
 import type { Category } from "../../pages/related/type";
 
+
 function Home() {
 const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
