@@ -8,7 +8,9 @@ export interface Product {
   Name: string;
   slug: string;
   StoreName: string;
-  Image?: Image;
+  Image: Image;
+  Likes: number;
+  Views: number;
 }
 
 export interface Icon {

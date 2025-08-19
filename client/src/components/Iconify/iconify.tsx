@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
-import Box from '@mui/material/Box';
 import { Icon } from '@iconify/react';
+import type { HTMLAttributes } from 'react';
 
-interface IconifyProps {
+interface IconifyProps extends HTMLAttributes<HTMLDivElement> {
   icon: string;
   width?: number;
   fontSize?: string;
@@ -12,15 +12,9 @@ interface IconifyProps {
 
 const Iconify = forwardRef<HTMLDivElement, IconifyProps>(
   ({ icon, width = 20, color = '', sx, ...other }, ref) => (
-    <Box
-      ref={ref}
-      color={color}
-      component={Icon}
-      className="component-iconify"
-      icon={icon}
-      sx={{ width, height: width, ...sx }}
-      {...other}
-    />
+    <div ref={ref} style={{ width, height: width, color, ...sx }} {...other}>
+      <Icon icon={icon} width={width} height={width} />
+    </div>
   )
 );
 
