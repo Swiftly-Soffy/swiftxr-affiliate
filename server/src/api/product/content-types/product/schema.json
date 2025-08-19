@@ -38,12 +38,16 @@
     "SwiftXREmbed": {
       "type": "text",
       "default": "swiftxr-embed",
-      "required": true
+      "required": false
     },
     "category": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::category.category"
+    },
+    "StoreName": {
+      "type": "string",
+      "required": true
     }
   }
 }

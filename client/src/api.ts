@@ -15,3 +15,17 @@ export const getProductSlug = async (slug: string) =>{
     );
     return res.data.data[0]
 }
+
+export const getProducts = async () => {
+  const res = await axios.get(
+    `${API_URL}/products?populate=Image`
+  );
+  return res.data.data;
+};
+
+export const getCategories = async () => {
+  const res = await axios.get(
+    `${API_URL}/categories?populate[Icon]=true&populate[products][populate]=Image`
+  );
+  return res.data.data;
+};

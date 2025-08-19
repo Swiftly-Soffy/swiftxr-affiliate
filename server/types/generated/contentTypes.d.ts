@@ -601,8 +601,8 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     Name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID & Schema.Attribute.Required;
+    StoreName: Schema.Attribute.String & Schema.Attribute.Required;
     SwiftXREmbed: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'swiftxr-embed'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
