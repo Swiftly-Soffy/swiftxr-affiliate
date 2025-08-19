@@ -193,6 +193,8 @@ function ProductCard({ product }: { product: Product }) {
 }
 
 export default function CataloguePage({ selectedCategory, categories }: Props) {
+  const { isMobile } = useResponsiveViewContext();
+
   const allProducts = categories.flatMap((c) => c.products ?? []);
   const filteredProducts = selectedCategory
     ? (categories.find((c) => c.id === selectedCategory)?.products ?? [])
@@ -205,8 +207,8 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
 
 
   return (
-    <Stack bgcolor="background.default" component="section">
-      <Box display="flex" alignItems="center" gap={6}>
+    <Stack bgcolor="background.default" component="section" mt={isMobile ? -30: 'auto'}>
+      <Box display="flex" alignItems="center" gap={isMobile ? 3: 6}>
         <Box flex={1} borderTop="2px solid" borderColor="divider" position="relative">
           <Box
             sx={{
@@ -221,7 +223,7 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
           />
         </Box>
 
-        <Typography fontSize={47} fontWeight={700} color="text.primary">
+        <Typography fontSize={isMobile ? 25: 47} fontWeight={700} color="text.primary">
           {title}
         </Typography>
 
@@ -241,7 +243,7 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
       </Box>
 
       {/* Products */}
-      <Grid container spacing={4}>
+      <Grid container spacing={2}>
         {filteredProducts.map((product, index) => {
           const rowSize = 4;
           const isAfterThirdRow =
@@ -255,6 +257,7 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
                 <Grid size={12}>
                   <Box
                     sx={{
+                      width: 'auto',
                       position: "relative",
                       display: "flex",
                       alignItems: "center",
@@ -263,17 +266,19 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       borderRadius: 5,
-                      p: 6,
-                      minHeight: 150,
+                      p: isMobile ? 4: 6,
+                      minHeight: isMobile ? 300: 150,
                       color: "text.neutral",
+                      flexDirection: isMobile ? 'column' : 'row',
+                      textAlign: isMobile ? 'center' : 'auto'
                     }}
                   >
                     {/* Left side */}
-                    <Box sx={{ maxWidth: '40%' }}>
-                      <Typography fontWeight={700} fontSize={30}>
+                    <Box sx={{ maxWidth: isMobile ? 'auto': '40%' }}>
+                      <Typography fontWeight={700} fontSize={isMobile ? 26: 30}>
                         See It Before You Buy It
                       </Typography>
-                      <Typography fontSize={14} fontWeight={400}>
+                      <Typography fontSize={isMobile ? 13: 14} fontWeight={400}>
                         Turn every product into an experience. Rotate, zoom, and drop it right into your space—straight from your browser.                    </Typography>
                     </Box>
 
@@ -283,10 +288,11 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
                       src={BgPic}
                       alt="BgPic"
                       sx={{
-                        maxWidth: "60%",
+                        maxWidth: isMobile ? '100%': '40%',
                         position: 'absolute',
                         bottom: 0,
-                        right: 0
+                        right: 0,
+                        borderRadius: 5
                       }}
                     />
                   </Box>
