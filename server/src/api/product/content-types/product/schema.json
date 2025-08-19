@@ -51,13 +51,11 @@
     },
     "Likes": {
       "type": "integer",
-      "default": 0,
-      "configurable": false
+      "default": 0
     },
     "Views": {
       "type": "integer",
-      "default": 0,
-      "configurable": false
+      "default": 0
     }
   }
 }
