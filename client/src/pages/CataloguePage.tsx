@@ -14,7 +14,7 @@ import BgPic from "../assets/bgPic.png"
 const apiUrl = import.meta.env.VITE_API_URL;
 
 type Props = {
-  selectedCategory: number | null; // number or null
+  selectedCategory: number | null; 
   categories: Category[];
 };
 
@@ -26,7 +26,7 @@ function ProductCard({ product }: { product: Product }) {
   const [likesCount, setLikesCount] = useState(product.Likes ?? 0);
   const [viewsCount, setViewsCount] = useState(product.Views ?? 0);
 
-  // Likes
+  // Toggle Likes
   const handleLikes = async () => {
     try {
       const newLikes = liked ? Math.max(likesCount - 1, 0) : likesCount + 1;
@@ -41,7 +41,7 @@ function ProductCard({ product }: { product: Product }) {
     }
   };
 
-  // Views
+  // Increment Views once per page load
   useEffect(() => {
     const incrementViews = async () => {
       try {
@@ -59,7 +59,8 @@ function ProductCard({ product }: { product: Product }) {
     if (product?.id) {
       incrementViews();
     }
-  }, [product.id, product.Views]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product.id]); // only run on mount
 
   return (
     <Grid size={isMobile ? 12 : 4}>
@@ -207,8 +208,8 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
 
 
   return (
-    <Stack bgcolor="background.default" component="section" mt={isMobile ? -30: 'auto'}>
-      <Box display="flex" alignItems="center" gap={isMobile ? 3: 6}>
+    <Stack bgcolor="background.default" component="section" mt={isMobile ? -30 : 'auto'}>
+      <Box display="flex" alignItems="center" gap={isMobile ? 3 : 6}>
         <Box flex={1} borderTop="2px solid" borderColor="divider" position="relative">
           <Box
             sx={{
@@ -223,7 +224,7 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
           />
         </Box>
 
-        <Typography fontSize={isMobile ? 25: 47} fontWeight={700} color="text.primary">
+        <Typography fontSize={isMobile ? 25 : 47} fontWeight={700} color="text.primary">
           {title}
         </Typography>
 
@@ -243,7 +244,7 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
       </Box>
 
       {/* Products */}
-      <Grid container spacing={2}>
+      <Grid container spacing={2} id="catalogue">
         {filteredProducts.map((product, index) => {
           const rowSize = 4;
           const isAfterThirdRow =
@@ -266,19 +267,19 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       borderRadius: 5,
-                      p: isMobile ? 4: 6,
-                      minHeight: isMobile ? 300: 150,
+                      p: isMobile ? 4 : 6,
+                      minHeight: isMobile ? 300 : 150,
                       color: "text.neutral",
                       flexDirection: isMobile ? 'column' : 'row',
                       textAlign: isMobile ? 'center' : 'auto'
                     }}
                   >
                     {/* Left side */}
-                    <Box sx={{ maxWidth: isMobile ? 'auto': '40%' }}>
-                      <Typography fontWeight={700} fontSize={isMobile ? 26: 30}>
+                    <Box sx={{ maxWidth: isMobile ? 'auto' : '40%' }}>
+                      <Typography fontWeight={700} fontSize={isMobile ? 26 : 30}>
                         See It Before You Buy It
                       </Typography>
-                      <Typography fontSize={isMobile ? 13: 14} fontWeight={400}>
+                      <Typography fontSize={isMobile ? 13 : 14} fontWeight={400}>
                         Turn every product into an experience. Rotate, zoom, and drop it right into your space—straight from your browser.                    </Typography>
                     </Box>
 
@@ -288,7 +289,7 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
                       src={BgPic}
                       alt="BgPic"
                       sx={{
-                        maxWidth: isMobile ? '100%': '40%',
+                        maxWidth: isMobile ? '100%' : '40%',
                         position: 'absolute',
                         bottom: 0,
                         right: 0,
