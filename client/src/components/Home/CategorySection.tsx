@@ -42,7 +42,7 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
         });
     }, []);
 
-    {/* Carousel Arrow */}
+    {/* Carousel Arrow */ }
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const scroll = (direction: "left" | "right") => {
@@ -85,7 +85,7 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                                 : "transparent",
                         transition: "0.3s",
                         minWidth: isMobile ? 100 : 140,
-                        color: selectedCategory === null ? 'text.neutral' : 'text.primary', 
+                        color: selectedCategory === null ? 'text.neutral' : 'text.primary',
                     }}
                 >
                     <Iconify icon="teenyicons:menu-outline" sx={{ height: 40 }} />
@@ -94,51 +94,91 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                     </Typography>
                 </Stack>
 
-                {/* Other categories */}
-                {categories.map((cat) => (
-                    <Stack
-                        key={cat.id}
-                        alignItems="center"
-                        justifyContent="center"
-                        spacing={1}
-                        onClick={() => onSelectCategory(cat.id)}
-                        sx={{
-                            cursor: "pointer",
-                            borderRadius: 1,
-                            p: 1,
-                            border: "1px solid",
-                            borderColor: "grey.200",
-                            background:
-                                selectedCategory === cat.id
+                {categories.map((cat) => {
+                    const isActive = selectedCategory === cat.id;
+                    return (
+                        <Stack
+                            key={cat.id}
+                            alignItems="center"
+                            justifyContent="center"
+                            spacing={1}
+                            onClick={() => onSelectCategory(cat.id)}
+                            sx={{
+                                cursor: "pointer",
+                                borderRadius: 1,
+                                p: 1,
+                                border: "1px solid",
+                                borderColor: isActive ? "transparent" : "grey.300",
+                                background: isActive
                                     ? "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)"
                                     : "transparent",
-                            transition: "0.3s",
-                            minWidth: isMobile ? 100 : 140,
-                        }}
-                    >
-                        {cat.Icon?.url ? (
-                            <img
-                                src={`${import.meta.env.VITE_API_URL}${cat.Icon.url}`}
-                                alt={cat.Icon.name}
-                                style={{ width: 40, height: 40, objectFit: "contain"}}
-                            />
-                        ) : (
-                            <Box sx={{ width: 40, height: 40, bgcolor: "grey.300", borderRadius: "50%" }} />
-                        )}
-                        <Typography fontWeight={600}>{cat.name}</Typography>
-                    </Stack>
-                ))}
+                                transition: "0.3s",
+                                minWidth: isMobile ? 100 : 140,
+                            }}
+                        >
+                            {cat.Icon?.url ? (
+                                <img
+                                    src={`${import.meta.env.VITE_API_URL}${cat.Icon.url}`}
+                                    alt={cat.Icon.name}
+                                    style={{
+                                        width: 40,
+                                        height: 40,
+                                        objectFit: "contain",
+                                        filter: isActive ? "brightness(0) invert(1)" : "none", 
+                                    }}
+                                />
+                            ) : (
+                                <Box
+                                    sx={{
+                                        width: 40,
+                                        height: 40,
+                                        borderRadius: "50%",
+                                    }}
+                                />
+                            )}
+                            <Typography
+                                fontWeight={600}
+                                sx={{ color: isActive ? "text.neutral" : "text.primary" }}
+                            >
+                                {cat.name}
+                            </Typography>
+                        </Stack>
+                    );
+                })}
+
             </Stack>
 
             {/* Arrows */}
-            <Stack direction="row" justifyContent="center">
-                <IconButton onClick={() => scroll("left")}>
-                    <Iconify icon="akar-icons:arrow-left" sx={{ width: 28, height: 24 }}  />
+            <Stack direction="row" justifyContent="center" gap={2} color="text.primary">
+                <IconButton
+                    onClick={() => scroll("left")}
+                    sx={{
+                        bgcolor: 'background.neutral',
+                        "&:hover": { bgcolor: "background.paper" },
+                        borderRadius: "50%"
+                    }}
+                >
+                    <Iconify
+                        icon="akar-icons:arrow-left"
+                        sx={{ width: 28, height: 24 }}
+                    />
                 </IconButton>
-                <IconButton onClick={() => scroll("right")}>
-                    <Iconify icon="akar-icons:arrow-right" sx={{ width: 28, height: 24 }} />
+
+                <IconButton
+                    onClick={() => scroll("right")}
+                    sx={{
+                        bgcolor: "background.neutral",
+                        "&:hover": { bgcolor: "background.paper" },
+                        borderRadius: "50%",
+                    }}
+                >
+                    <Iconify
+                        icon="akar-icons:arrow-right"
+                        sx={{ width: 28, height: 24 }}
+                    />
                 </IconButton>
             </Stack>
+
         </Stack>
     );
 }
