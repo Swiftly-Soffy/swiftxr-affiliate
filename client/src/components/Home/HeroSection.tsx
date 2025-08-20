@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Box, Typography, Button, keyframes } from "@mui/material";
+import { Box, Typography, Button, keyframes, Slide } from "@mui/material";
+import { useResponsiveViewContext } from "../providers";
 
 import phone from "../../assets/slide1.png"
 import chair from "../../assets/slide2.png"
@@ -18,25 +19,25 @@ const slides: Slide[] = [
         title: "Tech You Can Touch",
         description: "Experience the latest gadgets like never before—spin, zoom, and see every detail before you buy.",
         image: phone,
-        buttonText: "Gadgets"
+        buttonText: "Gadgets",
     },
     {
         title: "Design That Fits Your Space",
         description: "Place our furniture in your living room with one tap. Make sure it’s perfect—before it arrives.",
         image: chair,
-        buttonText: "Furniture"
+        buttonText: "Furniture",
     },
     {
         title: "Style You Can Try On",
         description: "See how it looks on you instantly—our virtual try-on makes shopping effortless",
         image: shoe,
-        buttonText: "Fashion"
+        buttonText: "Fashion",
     },
     {
         title: "Smarter Living, In Your Hands",
         description: "Preview appliances in your kitchen or laundry room—make sure they fit your style and space perfectly.",
         image: refrig,
-        buttonText: "Home Appliances"
+        buttonText: "Home Appliances",
     }
 ];
 
@@ -59,7 +60,12 @@ const slideInOut = keyframes`
   }
 `;
 
-function HeroSection() {
+interface HeroSectionProps {
+    onCategoryClick: (categoryName: string) => void;
+}
+
+function HeroSection({ onCategoryClick }: HeroSectionProps) {
+    const { isMobile } = useResponsiveViewContext();
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
@@ -80,18 +86,24 @@ function HeroSection() {
                 color: "text.primary",
                 overflow: "hidden",
                 width: 1,
-                height: '500px',
+                height: isMobile ? '400px' : '500px',
                 position: 'relative',
             }}>
 
-            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    textAlign: isMobile ? 'center' : 'auto',
+                }}>
                 {/* Title */}
-                <Typography fontWeight={700} fontSize={60} mt={-2} >
+                <Typography fontWeight={700} fontSize={isMobile ? 32 : 60} mt={isMobile ? 8 : -2} >
                     {slides[index].title}
                 </Typography>
 
                 {/* Description */}
-                <Typography fontWeight={400} fontSize={22} width={'40%'} textAlign={'center'}>
+                <Typography fontWeight={400} fontSize={isMobile ? 14 : 22} width={isMobile ? '90%' : '40%'} textAlign={'center'}>
                     {slides[index].description}
                 </Typography>
 
@@ -128,7 +140,13 @@ function HeroSection() {
             </Box>
 
             {/* Carousel Container */}
-            <Box sx={{ position: "relative", height: '400px', overflow: "hidden", mt: -10 }}>
+            <Box
+                sx={{
+                    position: "relative",
+                    height: isMobile ? '200px' : '400px',
+                    overflow: "hidden",
+                    mt: isMobile ? 'auto ' : -10,
+                }}>
                 {/* Carousel Images */}
                 {slides.map((slide, i) => (
                     <Box
@@ -138,7 +156,7 @@ function HeroSection() {
                             top: 0,
                             left: 0,
                             width: "100%",
-                            height: "150%",
+                            height: '150%',
                             display: i === index ? "flex" : "none",
                             justifyContent: "center",
                             alignItems: "center",
@@ -149,9 +167,9 @@ function HeroSection() {
                             src={slide.image}
                             alt={slide.title}
                             style={{
-                                width: "80%",
-                                height: "auto",
-                                maxHeight: "90%",
+                                width: '80%',
+                                height: 'auto',
+                                maxHeight: '90%',
                                 objectFit: "contain",
                                 display: "block",
                             }}
@@ -160,21 +178,22 @@ function HeroSection() {
                 ))}
 
                 <Button
+                    onClick={() => onCategoryClick(slides[index].buttonText)}
                     variant="contained"
                     sx={{
                         position: "absolute",
-                        top: '65%',
+                        top: isMobile ? '60%' : '65%',
                         left: "50%",
                         transform: "translateX(-50%)",
                         backgroundColor: "rgba(128, 128, 128, 0.25)",
                         color: "text.primary",
                         backdropFilter: "blur(10px)",
                         WebkitBackdropFilter: "blur(10px)",
-                        borderRadius: 5,
-                        px: 3,
-                        py: 2.5,
+                        borderRadius: isMobile ? 3 : 5,
+                        px: isMobile ? 2 : 3,
+                        py: isMobile ? 1 : 2.5,
                         fontWeight: 600,
-                        fontSize: 27,
+                        fontSize: isMobile ? 14 : 27,
                         "&:hover": {
                             bgcolor: "rgba(128, 128, 128, 0.55)",
                         },
@@ -183,6 +202,7 @@ function HeroSection() {
                 >
                     {slides[index].buttonText}
                 </Button>
+
             </Box>
 
         </Box>
