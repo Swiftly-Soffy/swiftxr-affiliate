@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Box, Typography, Grid } from "@mui/material";
+import { Stack, Box, Typography, Grid, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useResponsiveViewContext } from "../components/providers";
 import type { Category, Product } from "./related/type";
@@ -14,7 +14,7 @@ import BgPic from "../assets/bgPic.png"
 const apiUrl = import.meta.env.VITE_API_URL;
 
 type Props = {
-  selectedCategory: number | null; 
+  selectedCategory: number | null;
   categories: Category[];
 };
 
@@ -60,7 +60,7 @@ function ProductCard({ product }: { product: Product }) {
       incrementViews();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product.slug]); 
+  }, [product.slug]);
 
   return (
     <Grid size={isMobile ? 12 : 4}>
@@ -70,6 +70,11 @@ function ProductCard({ product }: { product: Product }) {
           width: 1,
           p: 3,
           height: 1,
+          position: "relative",
+          "&:hover .hover-button": {
+            opacity: 1,
+            transform: "translate(-50%, -70%)",
+          },
         }}
       >
         <Box
@@ -84,6 +89,7 @@ function ProductCard({ product }: { product: Product }) {
             justifyContent: "center",
             alignItems: "center",
             overflow: "hidden",
+            boxShadow: 2,
             "& img": {
               maxWidth: "100%",
               maxHeight: "100%",
@@ -127,6 +133,7 @@ function ProductCard({ product }: { product: Product }) {
           </Box>
         </Box>
 
+        {/* StoreName */}
         <Box sx={{ width: 'fit-content' }}>
           <Typography
             fontSize={10}
@@ -145,15 +152,19 @@ function ProductCard({ product }: { product: Product }) {
           </Typography>
         </Box>
 
+        {/* ProductName */}
         <Typography
-          fontSize={18}
+          fontSize={20}
           color="text.primary"
           fontWeight={600}
-          component={Link}
-          to={`/products/${product.slug}`}
+          noWrap
           sx={{
             textDecoration: "none",
-            "&:hover": { color: '#fd7cb0ff' }
+            maxWidth: "100%",
+            display: "block",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
           }}
         >
           {product.Name}
@@ -188,6 +199,53 @@ function ProductCard({ product }: { product: Product }) {
           </Typography>
         </Box>
 
+        {/* Details button */}
+        <Box
+          className="hover-button"
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, 300%)",
+            opacity: 0,
+            transition: "all 0.8s cubic-bezier(0.19, 1, 0.22, 1)",
+            zIndex: 5,
+          }}
+        >
+          <Button
+            component={Link}
+            to={`/products/${product.slug}`}
+            variant="contained"
+            sx={{
+              boxShadow: 5,
+              background: "linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(255,255,255,1))",
+              backdropFilter: "blur(10px)",
+              border: 'divider',
+              WebkitBackdropFilter: "blur(10px)",
+              borderRadius: isMobile ? 3 : 4,
+              px: isMobile ? 2 : 3,
+              py: isMobile ? 1 : 2.5,
+              fontWeight: 600,
+              fontSize: isMobile ? 14 : 16,
+              textTransform: "none",
+              "&:hover": {
+                bgcolor: "#fff",
+                opacity: 0.9,
+              },
+            }}
+          >
+            <Typography
+              sx={{
+                background: "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              View details
+            </Typography>
+          </Button>
+        </Box>
       </Stack>
     </Grid>
   );
