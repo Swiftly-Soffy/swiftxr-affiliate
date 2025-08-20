@@ -42,6 +42,7 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
         });
     }, []);
 
+    {/* Carousel Arrow */}
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const scroll = (direction: "left" | "right") => {
