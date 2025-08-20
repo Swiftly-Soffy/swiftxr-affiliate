@@ -11,6 +11,9 @@ export interface Product {
   Image?: { url: string; name: string };
   Likes: number | null;
   Views: number | null;
+  Description?: string;
+  ExternalUrl?: string;
+  SwiftXREmbed?: string;
 }
 
 export interface Icon {
