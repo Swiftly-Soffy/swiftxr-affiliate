@@ -29,3 +29,5 @@ export const getCategories = async () => {
   );
   return res.data.data;
 };
+
+

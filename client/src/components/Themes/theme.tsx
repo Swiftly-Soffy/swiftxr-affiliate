@@ -26,7 +26,7 @@ const THEME_SETTINGS_LIGHT = createTheme({
       default: '#FFFFFF',
       paper: '#FFE1EE',
       //@ts-expect-error neutral
-      neutral: "#FCF6F8"
+      neutral: "#FFF8FB"
     },
     action: {
       active: '#1b1b1b',

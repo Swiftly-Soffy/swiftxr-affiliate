@@ -33,7 +33,7 @@ function ProductCard({ product }: { product: Product }) {
       setLikesCount(newLikes);
       setLiked(!liked);
 
-      await axios.patch(`${apiUrl}/api/products/${product.id}`, {
+      await axios.patch(`${apiUrl}/api/products/${product.slug}`, {
         data: { Likes: newLikes },
       });
     } catch (err) {
@@ -48,7 +48,7 @@ function ProductCard({ product }: { product: Product }) {
         const newViews = (product.Views ?? 0) + 1;
         setViewsCount(newViews);
 
-        await axios.patch(`${apiUrl}/api/products/${product.id}`, {
+        await axios.patch(`${apiUrl}/api/products/${product.slug}`, {
           data: { Views: newViews },
         });
       } catch (err) {
@@ -56,11 +56,11 @@ function ProductCard({ product }: { product: Product }) {
       }
     };
 
-    if (product?.id) {
+    if (product?.slug) {
       incrementViews();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product.id]); // only run on mount
+  }, [product.slug]); 
 
   return (
     <Grid size={isMobile ? 12 : 4}>
@@ -150,7 +150,7 @@ function ProductCard({ product }: { product: Product }) {
           color="text.primary"
           fontWeight={600}
           component={Link}
-          to={`/products/${product.id}`}
+          to={`/products/${product.slug}`}
           sx={{
             textDecoration: "none",
             "&:hover": { color: '#fd7cb0ff' }
@@ -251,7 +251,7 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
             Math.floor(index / rowSize) === 2 && index % rowSize === 0;
 
           return (
-            <React.Fragment key={product.id}>
+            <React.Fragment key={product.slug}>
               <ProductCard product={product} />
 
               {isAfterThirdRow && (
