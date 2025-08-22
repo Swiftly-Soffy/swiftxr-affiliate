@@ -218,7 +218,7 @@ function ProductCard({ product }: { product: Product }) {
             variant="contained"
             sx={{
               boxShadow: 5,
-              background: "linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(255,255,255,1))",
+              background: "linear-gradient(to bottom, rgba(0,0,0,0), rgba(255,255,255,1))",
               backdropFilter: "blur(10px)",
               border: 'divider',
               WebkitBackdropFilter: "blur(10px)",
