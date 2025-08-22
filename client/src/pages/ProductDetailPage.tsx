@@ -171,7 +171,7 @@ export default function ProductDetailPage() {
                                 px: 15,
                                 py: 1.5,
                                 "&:hover": {
-                                    bgcolor: 'text.secondary',
+                                    bgcolor: '#006bbf',
                                     color: 'text.neutral'
                                 },
                             }}
