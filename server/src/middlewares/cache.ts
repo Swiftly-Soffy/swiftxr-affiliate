@@ -1,11 +1,11 @@
 import NodeCache from "node-cache";
 
-const cache = new NodeCache({ stdTTL: 3600 }); // cache for 1 hour
+const cache = new NodeCache({ stdTTL: 3600 }); 
 
 export default (config, { strapi }) => {
   return async (ctx, next) => {
     if (ctx.method !== "GET") {
-      return next(); // only cache GET requests
+      return next();
     }
 
     const key = ctx.url;
