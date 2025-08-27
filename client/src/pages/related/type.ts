@@ -14,6 +14,7 @@ export interface Product {
   Description?: string;
   ExternalUrl?: string;
   SwiftXREmbed?: string;
+  documentId: string;
 }
 
 export interface Icon {

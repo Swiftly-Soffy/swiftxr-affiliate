@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import { Stack, Box, Typography, Grid, Button } from "@mui/material";
-import { Link } from "react-router-dom";
-import { useResponsiveViewContext } from "../components/providers";
-import type { Category, Product } from "./related/type";
 
 import Iconify from "../components/Iconify/iconify";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useResponsiveViewContext } from "../components/providers";
+
+import type { Category, Product } from "./related/type";
+import { getLikedProducts, toggleLikedProduct } from "../utils/Likes";
+import { markProductAsViewed, getViewedProducts } from "../utils/Views";
+
 
 import Bg from "../assets/bg.png"
 import BgPic from "../assets/bgPic.png"
+
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -18,49 +23,40 @@ type Props = {
   categories: Category[];
 };
 
-
 function ProductCard({ product }: { product: Product }) {
   const { isMobile } = useResponsiveViewContext();
 
-  const [liked, setLiked] = useState(false);
+  const navigate = useNavigate();
+  const [liked, setLiked] = useState(getLikedProducts().includes(product.documentId));
   const [likesCount, setLikesCount] = useState(product.Likes ?? 0);
-  const [viewsCount, setViewsCount] = useState(product.Views ?? 0);
+  const [viewsCount] = useState(product.Views ?? 0);
 
-  // Toggle Likes
+  // Handle Likes
   const handleLikes = async () => {
-    try {
-      const newLikes = liked ? Math.max(likesCount - 1, 0) : likesCount + 1;
-      setLikesCount(newLikes);
-      setLiked(!liked);
+    const updated = toggleLikedProduct(product.documentId);
+    setLiked(updated.includes(product.documentId));
 
-      await axios.patch(`${apiUrl}/api/products/${product.slug}`, {
-        data: { Likes: newLikes },
-      });
-    } catch (err) {
-      console.error("Error updating likes:", err);
-    }
+    const newLikes = liked ? likesCount - 1 : likesCount + 1;
+    setLikesCount(newLikes);
+
+    await axios.put(`${apiUrl}/api/products/${product.documentId}`, {
+      data: { Likes: newLikes },
+    });
   };
 
-  // Increment Views once per page load
-  useEffect(() => {
-    const incrementViews = async () => {
-      try {
-        const newViews = (product.Views ?? 0) + 1;
-        setViewsCount(newViews);
+  //Handle Views
+  const handleProductClick = async (product: Product) => {
+    const alreadyViewed = getViewedProducts().includes(product.documentId);
 
-        await axios.patch(`${apiUrl}/api/products/${product.slug}`, {
-          data: { Views: newViews },
-        });
-      } catch (err) {
-        console.error("Error incrementing views:", err);
-      }
-    };
-
-    if (product?.slug) {
-      incrementViews();
+    if (!alreadyViewed) {
+      await axios.put(`${apiUrl}/api/products/${product.documentId}`, {
+        data: { Views: (product.Views ?? 0) + 1 },
+      });
+      markProductAsViewed(product.documentId);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product.slug]);
+
+    navigate(`/products/${product.slug}`);
+  };
 
   return (
     <Grid size={isMobile ? 12 : 4}>
@@ -77,24 +73,26 @@ function ProductCard({ product }: { product: Product }) {
           },
         }}
       >
+        {/* Product Image and like */}
         <Box
           sx={{
             position: "relative",
-            bgcolor: "background.paper",
-            width: "100%",
-            height: 250,
+            bgcolor: "background.neutral",
+            width: '100%',
+            height: 220,
             borderRadius: 5,
-            p: 6,
+            p: 4,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             overflow: "hidden",
-            boxShadow: 2,
+            boxShadow: 0.3,
             "& img": {
               maxWidth: "100%",
               maxHeight: "100%",
               objectFit: "contain",
               display: "block",
+              padding: '8px'
             },
           }}
         >
@@ -115,18 +113,18 @@ function ProductCard({ product }: { product: Product }) {
               border: "1px solid",
               borderColor: "divider",
               borderRadius: 2,
-              p: 0.7,
+              p: 0.5,
               position: "absolute",
               top: 8,
               right: 10,
             }}
           >
             <Iconify
-              icon={liked ? "ion:heart" : "ion:heart-outline"}
+              icon={liked ? "gridicons:heart" : "ri:heart-3-line"}
               onClick={handleLikes}
+              width={25}
               sx={{
                 cursor: "pointer",
-                fontSize: "24px",
                 color: liked ? "#E21B1B" : "text.neutral",
               }}
             />
@@ -170,9 +168,9 @@ function ProductCard({ product }: { product: Product }) {
           {product.Name}
         </Typography>
 
-        {/* Likes count */}
+        {/* Likes and views count */}
         <Box display="flex" position="relative" flexDirection="row" alignItems="center" justifyContent="flex-start" gap={1}>
-          <Typography bgcolor="background.neutral" p={0.5} borderRadius="50%"
+          <Typography component="span" bgcolor="background.neutral" p={0.5} borderRadius="50%"
             sx={{
               border: 1,
               borderColor: 'background.paper'
@@ -180,7 +178,7 @@ function ProductCard({ product }: { product: Product }) {
             <Iconify icon="ion:heart" sx={{ color: '#E21B1B' }} />
           </Typography>
 
-          <Typography bgcolor="background.neutral" p={0.5} borderRadius="50%"
+          <Typography component="span" bgcolor="background.neutral" p={0.5} borderRadius="50%"
             sx={{
               position: 'relative',
               left: -15,
@@ -213,8 +211,7 @@ function ProductCard({ product }: { product: Product }) {
           }}
         >
           <Button
-            component={Link}
-            to={`/products/${product.slug}`}
+            onClick={() => handleProductClick(product)}
             variant="contained"
             sx={{
               boxShadow: 5,
@@ -302,7 +299,7 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
       </Box>
 
       {/* Products */}
-      <Grid container spacing={2} id="catalogue">
+      <Grid container spacing={1} id="catalogue">
         {filteredProducts.map((product, index) => {
           const rowSize = 4;
           const isAfterThirdRow =
