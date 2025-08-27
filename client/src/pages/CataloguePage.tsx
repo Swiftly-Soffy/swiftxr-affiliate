@@ -23,7 +23,7 @@ type Props = {
   categories: Category[];
 };
 
-function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product }: { product: Product }) {
   const { isMobile } = useResponsiveViewContext();
 
   const navigate = useNavigate();
