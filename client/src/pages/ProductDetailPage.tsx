@@ -4,49 +4,56 @@ import { getProductSlug } from "../api";
 import { Box, Typography, Stack, Button } from "@mui/material";
 import Iconify from "../components/Iconify/iconify";
 import type { Product } from "./related/type";
+import axios from "axios";
+
+import { useResponsiveViewContext } from "../components/providers";
+
+import { getLikedProducts, toggleLikedProduct } from "../utils/Likes";
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 export default function ProductDetailPage() {
+    const { isMobile } = useResponsiveViewContext();
+
     const { slug } = useParams<{ slug: string }>();
     const [product, setProduct] = useState<Product | null>(null);
-    const [liked, setLiked] = useState(false);
-    const [likesCount, setLikesCount] = useState(0);
-    const [viewsCount, setViewsCount] = useState(0);
 
     useEffect(() => {
         if (slug) {
             getProductSlug(slug).then((data) => {
-                if (!data) return;
+
                 setProduct(data as Product);
-                setLikesCount(data.Likes ?? 0);
-                setViewsCount(data.Views ?? 0);
-                setLiked((data.UserHasLiked ?? false)); // optional if you track per-user like
             });
         }
     }, [slug]);
 
+    const [liked, setLiked] = useState(false);
 
     useEffect(() => {
         if (product) {
-            const incrementViews = async () => {
-                try {
-                    const newViews = (viewsCount ?? 0) + 1;
-                    setViewsCount(newViews);
-                } catch (err) {
-                    console.error("Failed to increment views:", err);
-                }
-            };
-            incrementViews();
+            setLiked(getLikedProducts().includes(product.documentId));
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product]);
 
-    const handleLikes = async () => {
+    const handleLikeClick = async () => {
         if (!product) return;
-        const newLikes = liked ? Math.max(likesCount - 1, 0) : likesCount + 1;
-        setLikesCount(newLikes);
-        setLiked(!liked);
 
+        const updated = toggleLikedProduct(product.documentId);
+        setLiked(updated.includes(product.documentId));
+
+        const newLikes = liked
+            ? Math.max((product.Likes ?? 0) - 1, 0)
+            : (product.Likes ?? 0) + 1;
+
+        await axios.put(`${apiUrl}/api/products/${product.documentId}`, {
+            data: { Likes: newLikes },
+        });
+
+        // keep product state in sync with new likes
+        setProduct({ ...product, Likes: newLikes });
     };
+
 
     if (!product) return <p>Loading...</p>;
 
@@ -66,13 +73,13 @@ export default function ProductDetailPage() {
                     dangerouslySetInnerHTML={{ __html: product.SwiftXREmbed }} />
             )}
 
-            <Stack bgcolor="background.neutral" width="100%" py={5} mt={-8} borderRadius={2} spacing={1}>
+            <Stack bgcolor="background.neutral" width="100%" py={5} mt={-8} borderRadius={2} spacing={1} alignItems="center">
 
                 <Stack direction="row" spacing={1}
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
                     }}>
                     <Typography
                         fontSize={10}
@@ -88,7 +95,7 @@ export default function ProductDetailPage() {
                             width: 'fit-content'
                         }}
                     >
-                        By {product.StoreName}
+                        By {product.StoreName ?? "Unknown Store"}
                     </Typography>
 
                     <Box display="flex" position="relative" alignItems="center" justifyContent="center">
@@ -102,7 +109,7 @@ export default function ProductDetailPage() {
                                 justifyContent: "center",
                                 border: 1,
                                 borderColor: "grey.300",
-                                width: 30, 
+                                width: 30,
                                 height: 30
                             }}
                         >
@@ -144,14 +151,16 @@ export default function ProductDetailPage() {
                                 }} />
                         </Box>
                     </Box>
-                    <Typography pl={4} fontSize={14} fontWeight={600} color="grey.500">(88 || 44k)</Typography>
+                    <Typography pl={4} fontSize={14} fontWeight={600} color="grey.500">
+                        ({product.Likes ?? 0} || {product.Views ?? 0})
+                    </Typography>
                 </Stack>
 
                 <Typography fontWeight={500} fontSize={32} color="text.secondary">
                     {product.Name}
                 </Typography>
 
-                <Typography fontWeight={400} fontSize={14} px={10} color="text.primary">
+                <Typography fontWeight={400} fontSize={14} px={10} width={isMobile? '100%': '70%'} color="text.primary">
                     {product.Description}
                 </Typography>
 
@@ -188,13 +197,14 @@ export default function ProductDetailPage() {
                             border: "1px solid",
                             borderColor: "divider",
                             borderRadius: 2,
-                            p: 1.5,
+                            p: 1,
                             cursor: "pointer",
                         }}
                     >
                         <Iconify
-                            icon={liked ? "ion:heart" : "famicons:heart-outline"}
-                            onClick={handleLikes}
+                            icon={liked ? "streamline-flex:heart-solid" : "gridicons:heart-outline"}
+                            onClick={handleLikeClick}
+                            width={28}
                             sx={{
                                 cursor: "pointer",
                                 color: liked ? "#E21B1B" : "text.neutral",
