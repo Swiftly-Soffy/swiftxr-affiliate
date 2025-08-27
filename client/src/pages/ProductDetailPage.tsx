@@ -80,7 +80,7 @@ export default function ProductDetailPage() {
 
     return (
         <Stack component="section" bgcolor="background.default">
-            <Stack spacing={6}
+            <Stack spacing={2}
                 sx={{
                     width: 1,
                     height: 1,
@@ -118,7 +118,7 @@ export default function ProductDetailPage() {
                 ) : null}
 
                 {/* Product Details */}
-                <Stack bgcolor="background.neutral" width="100%" borderRadius={2} alignItems="center" py={3} textAlign="center">
+                <Stack bgcolor="background.neutral" width="100%" borderRadius={2} alignItems="center" py={3} px={2} textAlign="center">
                     <Stack direction="row" spacing={1}
                         sx={{
                             display: 'flex',
@@ -201,15 +201,15 @@ export default function ProductDetailPage() {
                         </Typography>
                     </Stack>
 
-                    <Typography fontWeight={500} fontSize={32} color="text.secondary">
+                    <Typography fontWeight={500} fontSize={isMobile? 22: 32} py={isMobile? 1: 'auto'} color="text.secondary">
                         {product.Name}
                     </Typography>
 
-                    <Typography fontWeight={400} fontSize={14} px={10} width={isMobile ? '100%' : '70%'} color="text.primary">
+                    <Typography fontWeight={400} fontSize={isMobile? 12: 14} width={isMobile ? '100%' : '70%'} color="text.primary">
                         {product.Description}
                     </Typography>
 
-                    <Box display="flex" flexDirection="row" alignItems="flex-end" justifyContent="center" gap={2}>
+                    <Box display="flex" flexDirection="row" alignItems="flex-end" justifyContent="center" gap={isMobile? 1: 2}>
                         {product.ExternalUrl && (
                             <Button
                                 component="a"
@@ -222,7 +222,7 @@ export default function ProductDetailPage() {
                                     textDecoration: "none",
                                     mt: 2,
                                     borderRadius: 2,
-                                    px: 15,
+                                    px: isMobile? 2: 15,
                                     py: 1.5,
                                     "&:hover": {
                                         bgcolor: '#006bbf',
@@ -262,7 +262,7 @@ export default function ProductDetailPage() {
             </Stack>
 
             {/* Related Product */}
-            <Box display="flex" alignItems="center" gap={6} width="100%" pt={15}>
+            <Box display="flex" alignItems="center" gap={isMobile? 3: 6} width="100%" pt={15}>
                 <Box flex={1} borderTop="2px solid" borderColor="divider" position="relative">
                     <Box
                         sx={{
@@ -277,7 +277,7 @@ export default function ProductDetailPage() {
                     />
                 </Box>
 
-                <Typography fontSize={47} fontWeight={700} color="text.primary">
+                <Typography fontSize={isMobile? 25: 47} fontWeight={700} color="text.primary">
                     Related Products
                 </Typography>
 
@@ -296,7 +296,7 @@ export default function ProductDetailPage() {
                 </Box>
             </Box>
 
-            <Grid container spacing={4} sx={{ width: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
+            <Grid container spacing={1} sx={{ width: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
                 {related.length > 0 ? (
                     related.map((product) => (
                         <ProductCard key={product.id} product={product} />
