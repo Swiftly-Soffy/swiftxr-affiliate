@@ -59,7 +59,7 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
             <Stack
                 ref={scrollRef}
                 direction="row"
-                spacing={2}
+                spacing={3}
                 p={1}
                 sx={{
                     overflowX: "auto",
@@ -74,9 +74,9 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                     justifyContent="center"
                     onClick={() => onSelectCategory(null)}
                     sx={{
+                        flex: "0 0 17%",
                         cursor: "pointer",
                         borderRadius: 1,
-                        p: 2,
                         border: "1px solid",
                         borderColor: "grey.200",
                         background:
@@ -84,11 +84,16 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                                 ? "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)"
                                 : "transparent",
                         transition: "0.3s",
-                        minWidth: isMobile ? 100 : 140,
+                        minWidth: 70,
                         color: selectedCategory === null ? 'text.neutral' : 'text.primary',
+                        height: isMobile ? 80 : 150,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 1
                     }}
                 >
-                    <Iconify icon="teenyicons:menu-outline" sx={{ height: 40 }} />
+                    <Iconify icon="teenyicons:menu-outline" width={40} />
                     <Typography fontWeight={400} color={selectedCategory === null ? "text.neutral" : "text.primary"}>
                         All
                     </Typography>
@@ -106,14 +111,18 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                             sx={{
                                 cursor: "pointer",
                                 borderRadius: 1,
-                                p: 1,
                                 border: "1px solid",
                                 borderColor: isActive ? "transparent" : "grey.300",
                                 background: isActive
                                     ? "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)"
                                     : "transparent",
                                 transition: "0.3s",
-                                minWidth: isMobile ? 100 : 140,
+                                flex: "0 0 17%",
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: isMobile ? 80 : 150,
+                                minWidth: 70
                             }}
                         >
                             {cat.Icon?.url ? (
@@ -121,10 +130,10 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                                     src={`${import.meta.env.VITE_API_URL}${cat.Icon.url}`}
                                     alt={cat.Icon.name}
                                     style={{
-                                        width: 40,
-                                        height: 40,
+                                        width: 60,
+                                        height: 60,
                                         objectFit: "contain",
-                                        filter: isActive ? "brightness(0) invert(1)" : "none", 
+                                        filter: isActive ? "brightness(0) invert(1)" : "none",
                                     }}
                                 />
                             ) : (
