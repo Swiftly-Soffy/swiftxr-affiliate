@@ -74,7 +74,7 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                     justifyContent="center"
                     onClick={() => onSelectCategory(null)}
                     sx={{
-                        flex: "0 0 17%",
+                        flex: isMobile ? '0 0 18%' : '0 0 17%',
                         cursor: "pointer",
                         borderRadius: 1,
                         border: "1px solid",
@@ -84,16 +84,17 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                                 ? "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)"
                                 : "transparent",
                         transition: "0.3s",
-                        minWidth: 70,
+                        minWidth: isMobile ? 90 : 70,
                         color: selectedCategory === null ? 'text.neutral' : 'text.primary',
                         height: isMobile ? 80 : 150,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        gap: 1
+                        gap: isMobile ? 0 : 1,
+                        p: isMobile ? 5 : 0
                     }}
                 >
-                    <Iconify icon="teenyicons:menu-outline" width={40} />
+                    <Iconify icon="teenyicons:menu-outline" width={isMobile ? 20 : 40} />
                     <Typography fontWeight={400} color={selectedCategory === null ? "text.neutral" : "text.primary"}>
                         All
                     </Typography>
@@ -117,12 +118,13 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                                     ? "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)"
                                     : "transparent",
                                 transition: "0.3s",
-                                flex: "0 0 17%",
+                                flex: isMobile ? '0 0 18%' : '0 0 17%',
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 height: isMobile ? 80 : 150,
-                                minWidth: 70
+                                minWidth: isMobile ? 90 : 70,
+                                p: isMobile ? 5 : 0
                             }}
                         >
                             {cat.Icon?.url ? (
@@ -130,8 +132,8 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                                     src={`${import.meta.env.VITE_API_URL}${cat.Icon.url}`}
                                     alt={cat.Icon.name}
                                     style={{
-                                        width: 60,
-                                        height: 60,
+                                        width: isMobile ? 30 : 60,
+                                        height: isMobile ? 30 : 60,
                                         objectFit: "contain",
                                         filter: isActive ? "brightness(0) invert(1)" : "none",
                                     }}
@@ -146,7 +148,7 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                                 />
                             )}
                             <Typography
-                                fontWeight={600}
+                                fontWeight={isMobile ? 400 : 600}
                                 sx={{ color: isActive ? "text.neutral" : "text.primary" }}
                             >
                                 {cat.name}
