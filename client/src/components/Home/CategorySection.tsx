@@ -55,7 +55,7 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
     };
 
     return (
-        <Stack direction="column" component="section" spacing={0.4} textAlign="center">
+        <Stack direction="column" component="section" spacing={0.4} textAlign="center" mt={isMobile ? -7: 'auto'}>
             <Stack
                 ref={scrollRef}
                 direction="row"
