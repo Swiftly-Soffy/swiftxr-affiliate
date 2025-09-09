@@ -79,7 +79,7 @@ export default function ProductDetailPage() {
     if (!product) return <p>Loading...</p>;
 
     return (
-        <Stack component="section" bgcolor="background.default">
+        <Stack component='section' bgcolor='background.default'>
             <Stack spacing={2}
                 sx={{
                     width: 1,
@@ -91,22 +91,35 @@ export default function ProductDetailPage() {
                 {product.SwiftXREmbed && /<iframe|<embed/.test(product.SwiftXREmbed) ? (
                     <Box
                         flex={1}
-                        width="100%"
-                        bgcolor="background.neutral"
+                        width='100%'
+                        bgcolor='background.neutral'
                         borderRadius={2}
+                        height={400}
+                        overflow="hidden"        
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
                         dangerouslySetInnerHTML={{ __html: product.SwiftXREmbed }}
+                        sx={{
+                            '& iframe, & embed': {
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                border: 0,
+                            },
+                        }}
                     />
                 ) : product.Image ? (
                     <Box
                         flex={1}
-                        width="100%"
+                        width='100%'
                         minHeight={300}
-                        bgcolor="background.neutral"
+                        bgcolor='background.neutral'
                         borderRadius={2}
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        overflow="hidden"
+                        display='flex'
+                        justifyContent='center'
+                        alignItems='center'
+                        overflow='hidden'
                         padding={2}
                     >
                         <img
@@ -118,7 +131,7 @@ export default function ProductDetailPage() {
                 ) : null}
 
                 {/* Product Details */}
-                <Stack bgcolor="background.neutral" width="100%" borderRadius={2} alignItems="center" py={3} px={2} textAlign="center">
+                <Stack bgcolor='background.neutral' width='100%' borderRadius={2} alignItems='center' py={3} px={2} textAlign='center'>
                     <Stack direction="row" spacing={1}
                         sx={{
                             display: 'flex',
@@ -127,10 +140,10 @@ export default function ProductDetailPage() {
                         }}>
                         <Typography
                             fontSize={10}
-                            color="text.primary"
+                            color='text.primary'
                             fontWeight={700}
                             sx={{
-                                textDecoration: "none",
+                                textDecoration: 'none',
                                 bgcolor: 'background.paper',
                                 color: '#FF3D8A',
                                 borderRadius: 10,
@@ -148,16 +161,16 @@ export default function ProductDetailPage() {
                                 p={1}
                                 borderRadius="50%"
                                 sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
                                     border: 1,
-                                    borderColor: "grey.300",
+                                    borderColor: 'grey.300',
                                     width: 30,
                                     height: 30
                                 }}
                             >
-                                <Iconify icon="ion:heart"
+                                <Iconify icon='ion:heart'
                                     sx={{
                                         color: '#E21B1B',
                                         width: '5px',
@@ -170,22 +183,22 @@ export default function ProductDetailPage() {
                             </Box>
 
                             <Box
-                                bgcolor="background.neutral"
+                                bgcolor='background.neutral'
                                 p={1}
-                                borderRadius="50%"
+                                borderRadius='50%'
                                 sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
                                     border: 1,
-                                    borderColor: "grey.300",
+                                    borderColor: 'grey.300',
                                     width: 30,
                                     height: 30,
                                     position: 'absolute',
                                     left: 25
                                 }}
                             >
-                                <Iconify icon="lets-icons:eye-duotone"
+                                <Iconify icon='lets-icons:eye-duotone'
                                     sx={{
                                         width: '2px',
                                         height: '2px',
@@ -196,33 +209,33 @@ export default function ProductDetailPage() {
                             </Box>
                         </Box>
 
-                        <Typography pl={4} fontSize={14} fontWeight={600} color="grey.500">
+                        <Typography pl={4} fontSize={14} fontWeight={600} color='grey.500'>
                             ({product.Likes ?? 0} || {product.Views ?? 0})
                         </Typography>
                     </Stack>
 
-                    <Typography fontWeight={500} fontSize={isMobile? 22: 32} py={isMobile? 1: 'auto'} color="text.secondary">
+                    <Typography fontWeight={500} fontSize={isMobile ? 22 : 32} py={isMobile ? 1 : 'auto'} color='text.secondary'>
                         {product.Name}
                     </Typography>
 
-                    <Typography fontWeight={400} fontSize={isMobile? 12: 14} width={isMobile ? '100%' : '70%'} color="text.primary">
+                    <Typography fontWeight={400} fontSize={isMobile ? 12 : 14} width={isMobile ? '100%' : '70%'} color='text.primary'>
                         {product.Description}
                     </Typography>
 
-                    <Box display="flex" flexDirection="row" alignItems="flex-end" justifyContent="center" gap={isMobile? 1: 2}>
+                    <Box display='flex' flexDirection='row' alignItems='flex-end' justifyContent='center' gap={isMobile ? 1 : 2}>
                         {product.ExternalUrl && (
                             <Button
                                 component="a"
                                 href={product.ExternalUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                target='_blank'
+                                rel='noopener noreferrer'
                                 sx={{
-                                    backgroundColor: "#0084E3",
-                                    color: "text.neutral",
-                                    textDecoration: "none",
+                                    backgroundColor: '#0084E3',
+                                    color: 'text.neutral',
+                                    textDecoration: 'none',
                                     mt: 2,
                                     borderRadius: 2,
-                                    px: isMobile? 2: 15,
+                                    px: isMobile ? 2 : 15,
                                     py: 1.5,
                                     "&:hover": {
                                         bgcolor: '#006bbf',
@@ -234,25 +247,25 @@ export default function ProductDetailPage() {
                             </Button>
                         )}
                         <Box
-                            display="flex"
-                            justifyContent="center"
-                            alignItems="center"
+                            display='flex'
+                            justifyContent='center'
+                            alignItems='center'
                             sx={{
-                                bgcolor: "background.default",
-                                border: "1px solid",
-                                borderColor: "divider",
+                                bgcolor: 'background.default',
+                                border: '1px solid',
+                                borderColor: 'divider',
                                 borderRadius: 2,
                                 p: 1,
-                                cursor: "pointer",
+                                cursor: 'pointer',
                             }}
                         >
                             <Iconify
-                                icon={liked ? "streamline-flex:heart-solid" : "gridicons:heart-outline"}
+                                icon={liked ? 'streamline-flex:heart-solid' : 'gridicons:heart-outline'}
                                 onClick={handleLikeClick}
                                 width={28}
                                 sx={{
-                                    cursor: "pointer",
-                                    color: liked ? "#E21B1B" : "text.neutral",
+                                    cursor: 'pointer',
+                                    color: liked ? '#E21B1B' : 'text.neutral',
                                 }}
                             />
                         </Box>
@@ -262,35 +275,35 @@ export default function ProductDetailPage() {
             </Stack>
 
             {/* Related Product */}
-            <Box display="flex" alignItems="center" gap={isMobile? 3: 6} width="100%" pt={15}>
-                <Box flex={1} borderTop="2px solid" borderColor="divider" position="relative">
+            <Box display='flex' alignItems='center' gap={isMobile ? 3 : 6} width='100%' pt={15}>
+                <Box flex={1} borderTop='2px solid' borderColor='divider' position='relative'>
                     <Box
                         sx={{
-                            position: "absolute",
+                            position: 'absolute',
                             right: -5,
                             top: -4,
                             width: 6,
                             height: 6,
-                            bgcolor: "divider",
-                            borderRadius: "50%",
+                            bgcolor: 'divider',
+                            borderRadius: '50%',
                         }}
                     />
                 </Box>
 
-                <Typography fontSize={isMobile? 25: 47} fontWeight={700} color="text.primary">
+                <Typography fontSize={isMobile ? 25 : 47} fontWeight={700} color='text.primary'>
                     Related Products
                 </Typography>
 
-                <Box flex={1} borderTop="2px solid" borderColor="divider" position="relative">
+                <Box flex={1} borderTop='2px solid' borderColor='divider' position='relative'>
                     <Box
                         sx={{
-                            position: "absolute",
+                            position: 'absolute',
                             left: -5,
                             top: -4,
                             width: 6,
                             height: 6,
-                            bgcolor: "divider",
-                            borderRadius: "50%",
+                            bgcolor: 'divider',
+                            borderRadius: '50%',
                         }}
                     />
                 </Box>
@@ -304,8 +317,8 @@ export default function ProductDetailPage() {
                 ) : (
                     <Typography
                         fontSize={20}
-                        color="text.secondary"
-                        sx={{ textAlign: "center", width: "100%", mt: 5 }}
+                        color='text.secondary'
+                        sx={{ textAlign: 'center', width: '100%', mt: 5 }}
                     >
                         No related Product
                     </Typography>
