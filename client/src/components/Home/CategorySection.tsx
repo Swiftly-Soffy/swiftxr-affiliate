@@ -45,57 +45,57 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
     {/* Carousel Arrow */ }
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    const scroll = (direction: "left" | "right") => {
+    const scroll = (direction: 'left' | 'right') => {
         if (scrollRef.current) {
             scrollRef.current.scrollBy({
-                left: direction === "left" ? -200 : 200,
-                behavior: "smooth",
+                left: direction === 'left' ? -200 : 200,
+                behavior: 'smooth',
             });
         }
     };
 
     return (
-        <Stack direction="column" component="section" spacing={0.4} textAlign="center" mt={isMobile ? -7: 'auto'}>
+        <Stack direction='column' component='section' spacing={0.4} textAlign='center' mt={isMobile ? -7: 'auto'}>
             <Stack
                 ref={scrollRef}
-                direction="row"
+                direction='row'
                 spacing={3}
                 p={1}
                 sx={{
-                    overflowX: "auto",
-                    scrollBehavior: "smooth",
-                    "&::-webkit-scrollbar": { display: "none" },
+                    overflowX: 'auto',
+                    scrollBehavior: 'smooth',
+                    '&::-webkit-scrollbar': { display: 'none'},
                 }}
             >
                 {/* "All" category */}
                 <Stack
-                    alignItems="center"
+                    alignItems='center'
                     spacing={1}
-                    justifyContent="center"
+                    justifyContent='center'
                     onClick={() => onSelectCategory(null)}
                     sx={{
                         flex: isMobile ? '0 0 18%' : '0 0 17%',
-                        cursor: "pointer",
+                        cursor: 'pointer',
                         borderRadius: 1,
-                        border: "1px solid",
-                        borderColor: "grey.200",
+                        border: '1px solid',
+                        borderColor: 'grey.200',
                         background:
                             selectedCategory === null
-                                ? "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)"
-                                : "transparent",
-                        transition: "0.3s",
+                                ? 'linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)'
+                                : 'transparent',
+                        transition: '0.3s',
                         minWidth: isMobile ? 90 : 70,
                         color: selectedCategory === null ? 'text.neutral' : 'text.primary',
                         height: isMobile ? 80 : 150,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                         gap: isMobile ? 0 : 1,
                         p: isMobile ? 5 : 0
                     }}
                 >
-                    <Iconify icon="teenyicons:menu-outline" width={isMobile ? 20 : 40} />
-                    <Typography fontWeight={400} color={selectedCategory === null ? "text.neutral" : "text.primary"}>
+                    <Iconify icon='teenyicons:menu-outline' width={isMobile ? 20 : 40} />
+                    <Typography fontWeight={400} color={selectedCategory === null ? 'text.neutral' : 'text.primary'}>
                         All
                     </Typography>
                 </Stack>
@@ -105,19 +105,19 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                     return (
                         <Stack
                             key={cat.id}
-                            alignItems="center"
-                            justifyContent="center"
+                            alignItems='center'
+                            justifyContent='center'
                             spacing={1}
                             onClick={() => onSelectCategory(cat.id)}
                             sx={{
-                                cursor: "pointer",
+                                cursor: 'pointer',
                                 borderRadius: 1,
-                                border: "1px solid",
-                                borderColor: isActive ? "transparent" : "grey.300",
+                                border: '1px solid',
+                                borderColor: isActive ? 'transparent' : 'grey.300',
                                 background: isActive
-                                    ? "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)"
-                                    : "transparent",
-                                transition: "0.3s",
+                                    ? 'linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)'
+                                    : 'transparent',
+                                transition: '0.3s',
                                 flex: isMobile ? '0 0 18%' : '0 0 17%',
                                 display: 'flex',
                                 justifyContent: 'center',
@@ -134,8 +134,8 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                                     style={{
                                         width: isMobile ? 30 : 60,
                                         height: isMobile ? 30 : 60,
-                                        objectFit: "contain",
-                                        filter: isActive ? "brightness(0) invert(1)" : "none",
+                                        objectFit: 'contain',
+                                        filter: isActive ? 'brightness(0) invert(1)' : 'none',
                                     }}
                                 />
                             ) : (
@@ -143,13 +143,13 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
                                     sx={{
                                         width: 40,
                                         height: 40,
-                                        borderRadius: "50%",
+                                        borderRadius: '50%',
                                     }}
                                 />
                             )}
                             <Typography
                                 fontWeight={isMobile ? 400 : 600}
-                                sx={{ color: isActive ? "text.neutral" : "text.primary" }}
+                                sx={{ color: isActive ? 'text.neutral' : 'text.primary' }}
                             >
                                 {cat.name}
                             </Typography>
@@ -160,31 +160,31 @@ export default function CategorySection({ selectedCategory, onSelectCategory, }:
             </Stack>
 
             {/* Arrows */}
-            <Stack direction="row" justifyContent="center" gap={2} color="text.primary">
+            <Stack direction='row' justifyContent='center' gap={2} color='text.primary'>
                 <IconButton
-                    onClick={() => scroll("left")}
+                    onClick={() => scroll('left')}
                     sx={{
                         bgcolor: 'background.neutral',
-                        "&:hover": { bgcolor: "background.paper" },
-                        borderRadius: "50%"
+                        '&:hover': { bgcolor: 'background.paper' },
+                        borderRadius: '50%'
                     }}
                 >
                     <Iconify
-                        icon="akar-icons:arrow-left"
+                        icon='akar-icons:arrow-left'
                         sx={{ width: 28, height: 24 }}
                     />
                 </IconButton>
 
                 <IconButton
-                    onClick={() => scroll("right")}
+                    onClick={() => scroll('right')}
                     sx={{
-                        bgcolor: "background.neutral",
-                        "&:hover": { bgcolor: "background.paper" },
-                        borderRadius: "50%",
+                        bgcolor: 'background.neutral',
+                        '&:hover': { bgcolor: 'background.paper' },
+                        borderRadius: '50%',
                     }}
                 >
                     <Iconify
-                        icon="akar-icons:arrow-right"
+                        icon='akar-icons:arrow-right'
                         sx={{ width: 28, height: 24 }}
                     />
                 </IconButton>
