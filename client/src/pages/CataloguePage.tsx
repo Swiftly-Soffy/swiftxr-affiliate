@@ -66,32 +66,32 @@ export function ProductCard({ product }: { product: Product }) {
           width: 1,
           p: 3,
           height: 1,
-          position: "relative",
-          "&:hover .hover-button": {
+          position: 'relative',
+          '&:hover .hover-button': {
             opacity: 1,
-            transform: "translate(-50%, -70%)",
+            transform: 'translate(-50%, -70%)',
           },
         }}
       >
         {/* Product Image and like */}
         <Box
           sx={{
-            position: "relative",
-            bgcolor: "background.neutral",
+            position: 'relative',
+            bgcolor: 'background.neutral',
             width: '100%',
             height: 220,
             borderRadius: 5,
             p: 4,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            overflow: "hidden",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            overflow: 'hidden',
             boxShadow: 0.3,
-            "& img": {
-              maxWidth: "100%",
-              maxHeight: "100%",
-              objectFit: "contain",
-              display: "block",
+            '& img': {
+              maxWidth: '100%',
+              maxHeight: '100%',
+              objectFit: 'contain',
+              display: 'block',
               padding: '8px'
             },
           }}
@@ -100,32 +100,32 @@ export function ProductCard({ product }: { product: Product }) {
             <img
               src={`${apiUrl}${product.Image.url}`}
               alt={product.Image.name}
-              style={{ width: "100%", borderRadius: 5 }}
+              style={{ width: '100%', borderRadius: 5 }}
             />
           ) : (
-            <Box sx={{ width: "100%", height: 320, bgcolor: "grey.200", borderRadius: 2 }} />
+            <Box sx={{ width: '100%', height: 320, bgcolor: 'grey.200', borderRadius: 2 }} />
           )}
 
           {/* Like Icon */}
           <Box
             sx={{
-              bgcolor: "background.default",
-              border: "1px solid",
-              borderColor: "divider",
+              bgcolor: 'background.default',
+              border: '1px solid',
+              borderColor: 'divider',
               borderRadius: 2,
               p: 0.5,
-              position: "absolute",
+              position: 'absolute',
               top: 8,
               right: 10,
             }}
           >
             <Iconify
-              icon={liked ? "gridicons:heart" : "ri:heart-3-line"}
+              icon={liked ? 'gridicons:heart' : 'ri:heart-3-line'}
               onClick={handleLikes}
               width={25}
               sx={{
-                cursor: "pointer",
-                color: liked ? "#E21B1B" : "text.neutral",
+                cursor: 'pointer',
+                color: liked ? '#E21B1B' : 'text.neutral',
               }}
             />
           </Box>
@@ -135,10 +135,10 @@ export function ProductCard({ product }: { product: Product }) {
         <Box sx={{ width: 'fit-content' }}>
           <Typography
             fontSize={10}
-            color="text.primary"
+            color='text.primary'
             fontWeight={700}
             sx={{
-              textDecoration: "none",
+              textDecoration: 'none',
               bgcolor: 'background.neutral',
               color: '#FF3D8A',
               borderRadius: 10,
@@ -153,39 +153,39 @@ export function ProductCard({ product }: { product: Product }) {
         {/* ProductName */}
         <Typography
           fontSize={20}
-          color="text.primary"
+          color='text.primary'
           fontWeight={600}
           noWrap
           sx={{
-            textDecoration: "none",
-            maxWidth: "100%",
-            display: "block",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
+            textDecoration: 'none',
+            maxWidth: '100%',
+            display: 'block',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
           }}
         >
           {product.Name}
         </Typography>
 
         {/* Likes and views count */}
-        <Box display="flex" position="relative" flexDirection="row" alignItems="center" justifyContent="flex-start" gap={1}>
-          <Typography component="span" bgcolor="background.neutral" p={0.5} borderRadius="50%"
+        <Box display='flex' position='relative' flexDirection='row' alignItems='center' justifyContent='flex-start' gap={1}>
+          <Typography component='span' bgcolor='background.neutral' p={0.5} borderRadius='50%'
             sx={{
               border: 1,
               borderColor: 'background.paper'
             }}>
-            <Iconify icon="ion:heart" sx={{ color: '#E21B1B' }} />
+            <Iconify icon='ion:heart' sx={{ color: '#E21B1B' }} />
           </Typography>
 
-          <Typography component="span" bgcolor="background.neutral" p={0.5} borderRadius="50%"
+          <Typography component='span' bgcolor='background.neutral' p={0.5} borderRadius='50%'
             sx={{
               position: 'relative',
               left: -15,
               border: 1,
               borderColor: 'background.paper'
             }}>
-            <Iconify icon="lets-icons:eye-duotone" />
+            <Iconify icon='lets-icons:eye-duotone' />
           </Typography>
 
           <Typography fontSize={14} fontWeight={600}
@@ -199,44 +199,48 @@ export function ProductCard({ product }: { product: Product }) {
 
         {/* Details button */}
         <Box
-          className="hover-button"
+          className='hover-button'
           sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, 300%)",
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, 150%)',
             opacity: 0,
-            transition: "all 0.8s cubic-bezier(0.19, 1, 0.22, 1)",
-            zIndex: 5,
+            transition: 'all 0.8s cubic-bezier(0.19, 1, 0.22, 1)',
+            zIndex: 2
           }}
         >
           <Button
             onClick={() => handleProductClick(product)}
-            variant="contained"
+            variant='contained'
             sx={{
-              boxShadow: 5,
-              background: "linear-gradient(to bottom, rgba(0,0,0,0), rgba(255,255,255,1))",
-              backdropFilter: "blur(10px)",
-              border: 'divider',
-              WebkitBackdropFilter: "blur(10px)",
+              background: 'rgba(255, 255, 255, 0.60)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
               borderRadius: isMobile ? 3 : 4,
               px: isMobile ? 2 : 3,
-              py: isMobile ? 1 : 2.5,
+              py: isMobile ? 1 : 3,
               fontWeight: 600,
               fontSize: isMobile ? 14 : 16,
-              textTransform: "none",
-              "&:hover": {
-                bgcolor: "#fff",
-                opacity: 0.9,
+              textTransform: 'none',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              maskImage: 'linear-gradient(to top left, transparent 0%, black 50%, black 100%)',
+              WebkitMaskImage: 'linear-gradient(to top left, transparent 0%, black 50%, black 100%)',
+              overflow: 'hidden',
+              color: 'text.primary',
+              '&:hover': {
+                background: 'rgba(255, 255, 255, 0.12)'
               },
+              zIndex: 2
             }}
           >
             <Typography
               sx={{
-                background: "linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                background: 'linear-gradient(136.86deg, #BA21F8 -25.67%, #FF9B37 121.68%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                fontWeight: 600
               }}
             >
               View details
@@ -263,43 +267,43 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
 
 
   return (
-    <Stack bgcolor="background.default" component="section" mt={isMobile ? -30 : 'auto'}>
-      <Box display="flex" alignItems="center" gap={isMobile ? 3 : 6}>
-        <Box flex={1} borderTop="2px solid" borderColor="divider" position="relative">
+    <Stack bgcolor='background.default' component='section' mt={isMobile ? -30 : 'auto'}>
+      <Box display='flex' alignItems='center' gap={isMobile ? 3 : 6}>
+        <Box flex={1} borderTop='2px solid' borderColor='divider' position='relative'>
           <Box
             sx={{
-              position: "absolute",
+              position: 'absolute',
               right: -5,
               top: -4,
               width: 6,
               height: 6,
-              bgcolor: "divider",
-              borderRadius: "50%",
+              bgcolor: 'divider',
+              borderRadius: '50%',
             }}
           />
         </Box>
 
-        <Typography fontSize={isMobile ? 25 : 47} fontWeight={700} color="text.primary">
+        <Typography fontSize={isMobile ? 25 : 47} fontWeight={700} color='text.primary'>
           {title}
         </Typography>
 
-        <Box flex={1} borderTop="2px solid" borderColor="divider" position="relative">
+        <Box flex={1} borderTop='2px solid' borderColor='divider' position='relative'>
           <Box
             sx={{
-              position: "absolute",
+              position: 'absolute',
               left: -5,
               top: -4,
               width: 6,
               height: 6,
-              bgcolor: "divider",
-              borderRadius: "50%",
+              bgcolor: 'divider',
+              borderRadius: '50%',
             }}
           />
         </Box>
       </Box>
 
       {/* Products */}
-      <Grid container spacing={1} id="catalogue">
+      <Grid container spacing={1} id='catalogue'>
         {filteredProducts.map((product, index) => {
           const rowSize = 4;
           const isAfterThirdRow =
@@ -314,17 +318,17 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
                   <Box
                     sx={{
                       width: 'auto',
-                      position: "relative",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-start",
+                      position: 'relative',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
                       backgroundImage: `url(${Bg})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
                       borderRadius: 5,
                       p: isMobile ? 4 : 6,
                       minHeight: isMobile ? 300 : 150,
-                      color: "text.neutral",
+                      color: 'text.neutral',
                       flexDirection: isMobile ? 'column' : 'row',
                       textAlign: isMobile ? 'center' : 'auto'
                     }}
@@ -340,9 +344,9 @@ export default function CataloguePage({ selectedCategory, categories }: Props) {
 
                     {/* Right side(Image) */}
                     <Box
-                      component="img"
+                      component='img'
                       src={BgPic}
-                      alt="BgPic"
+                      alt='BgPic'
                       sx={{
                         maxWidth: isMobile ? '100%' : '40%',
                         position: 'absolute',
