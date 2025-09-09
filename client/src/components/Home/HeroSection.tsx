@@ -241,7 +241,7 @@ function HeroSection({ onCategoryClick }: HeroSectionProps) {
                         color: 'text.primary',
                         fontSize: isMobile ? 14 : 26,
                         '&:hover': {
-                            bgcolor: "rgba(128, 128, 128, 0.55)",
+                            bgcolor: 'rgba(128, 128, 128, 0.55)',
                         },
                         zIndex: 2,
                     }}
