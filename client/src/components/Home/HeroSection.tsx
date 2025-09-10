@@ -96,12 +96,12 @@ function HeroSection({ onCategoryClick }: HeroSectionProps) {
                     }}
                 >
                     {/* Title */}
-                    <Typography fontWeight={700} fontSize={isMobile ? 40 : 60} mt={isMobile ? 8 : -2}>
+                    <Typography fontWeight={700} fontSize={isMobile ? 28 : 60} mt={isMobile ? 8 : -2}>
                         {slides[index].title}
                     </Typography>
 
                     {/* Description */}
-                    <Typography fontWeight={400} fontSize={isMobile ? 20 : 22} width={isMobile ? '90%' : '55%'} textAlign='center'>
+                    <Typography fontWeight={400} fontSize={isMobile ? 14 : 22} width={isMobile ? '90%' : '55%'} textAlign='center'>
                         {slides[index].description}
                     </Typography>
                 </motion.div>
