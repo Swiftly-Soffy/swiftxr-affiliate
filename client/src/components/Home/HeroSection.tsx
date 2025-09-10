@@ -79,84 +79,32 @@ function HeroSection({ onCategoryClick }: HeroSectionProps) {
             {/*  Heading Texts */}
             <Box
                 sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '100%',
-                    minHeight: 350,
-                    overflow: 'hidden',
-                    position: 'relative',
-                }}
-            >
-                {/* Text container */}
-                <Box
-                    sx={{
-                        position: 'relative',
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    textAlign: isMobile ? 'center' : 'auto',
+                }}>
+                <motion.div
+                    key={index + '-text'}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8 }}
+                    style={{
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        textAlign: 'center',
-                        width: '100%',
-                        minHeight: 250,
-                        mt: isMobile ? 0 : -20,
                     }}
                 >
-                    {/* Title + Description old */}
-                    <AnimatePresence>
-                        <motion.div
-                            key={index + '-old'}
-                            initial={{ opacity: 1 }}
-                            animate={{ opacity: 0.2, transition: { duration: 2 } }}
-                            exit={{ opacity: 0, transition: { duration: 1 } }}
-                            style={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                width: '100%',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Typography fontWeight={700} fontSize={isMobile ? 40 : 60} lineHeight={1.1}>
-                                {slides[index].title}
-                            </Typography>
-                            <Typography fontWeight={400} fontSize={isMobile ? 18 : 22} width={isMobile ? '90%' : '60%'} textAlign='center' mt={2}>
-                                {slides[index].description}
-                            </Typography>
-                        </motion.div>
-                    </AnimatePresence>
+                    {/* Title */}
+                    <Typography fontWeight={700} fontSize={isMobile ? 40 : 60} mt={isMobile ? 8 : -2}>
+                        {slides[index].title}
+                    </Typography>
 
-                    {/* Title + Description new */}
-                    <AnimatePresence>
-                        <motion.div
-                            key={index + '-new'}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1, transition: { duration: 1.5 } }}
-                            exit={{ opacity: 0, transition: { duration: 1 } }}
-                            style={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                width: '100%',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Typography fontWeight={700} fontSize={isMobile ? 40 : 60} lineHeight={1.1}>
-                                {slides[index].title}
-                            </Typography>
-                            <Typography fontWeight={400} fontSize={isMobile ? 18 : 22} width={isMobile ? '90%' : '60%'} textAlign='center' mt={2}>
-                                {slides[index].description}
-                            </Typography>
-                        </motion.div>
-                    </AnimatePresence>
-                </Box>
+                    {/* Description */}
+                    <Typography fontWeight={400} fontSize={isMobile ? 20 : 22} width={isMobile ? '90%' : '55%'} textAlign='center'>
+                        {slides[index].description}
+                    </Typography>
+                </motion.div>
 
                 {/* Bullets */}
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: isMobile ? 1 : 3 }}>
@@ -164,19 +112,19 @@ function HeroSection({ onCategoryClick }: HeroSectionProps) {
                         <Box key={i} onClick={() => setIndex(i)} sx={{ mx: 0.4, cursor: 'pointer', flexShrink: 0 }}>
                             <svg width='20' height='20'>
                                 <circle
-                                    cx= '10'
-                                    cy= '10'
-                                    r= '8'
-                                    fill= 'transparent'
+                                    cx='10'
+                                    cy='10'
+                                    r='8'
+                                    fill='transparent'
                                     stroke={i === index ? 'url(#grad)' : '#FFE7EF'}
-                                    strokeWidth= '3'
+                                    strokeWidth='3'
                                 />
                                 {i === index && (
                                     <defs>
-                                        <linearGradient id= 'grad' x1= '0%' y1= '0%' x2= '100%' y2= '100%'>
-                                            <stop offset= '0%' stopColor= '#e47094' />
-                                            <stop offset= '40%' stopColor= '#c257c4' />
-                                            <stop offset= '100%' stopColor= '#0084e3' />
+                                        <linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'>
+                                            <stop offset='0%' stopColor='#e47094' />
+                                            <stop offset='40%' stopColor='#c257c4' />
+                                            <stop offset='100%' stopColor='#0084e3' />
                                         </linearGradient>
                                     </defs>
                                 )}
@@ -193,12 +141,12 @@ function HeroSection({ onCategoryClick }: HeroSectionProps) {
                     height: '100%',
                     width: '100%',
                     overflow: 'hidden',
-                    mt: isMobile ? 'auto ' : -20,
+                    mt: isMobile ? 'auto ' : -5,
                     maskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
                     WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
                 }}>
 
-                <AnimatePresence mode= 'wait'>
+                <AnimatePresence mode='wait'>
                     <motion.img
                         key={index}
                         src={slides[index].image}
@@ -214,7 +162,7 @@ function HeroSection({ onCategoryClick }: HeroSectionProps) {
                             transform: 'translate(-50%)',
                             width: 'auto',
                             maxWidth: 'none',
-                            height: isMobile? '125%' : 'auto',
+                            height: isMobile ? '130%' : 'auto',
                             maxHeight: '98vh',
                             objectFit: 'cover',
                             objectPosition: 'top center',
@@ -231,8 +179,9 @@ function HeroSection({ onCategoryClick }: HeroSectionProps) {
                         top: '60%',
                         left: '50%',
                         transform: 'translateX(-50%)',
-                        background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 100%)',
-                        backdropFilter: 'blur(18px)',
+                        background: 'rgba(255, 255, 255, 0.60)',
+                        backdropFilter: 'blur(8px)',
+                        WebkitBackdropFilter: 'blur(8px)',
                         border: '1px solid rgba(255, 255, 255, 0.2)',
                         borderRadius: isMobile ? 3 : 5,
                         px: isMobile ? 2 : 3,
@@ -241,7 +190,7 @@ function HeroSection({ onCategoryClick }: HeroSectionProps) {
                         color: 'text.primary',
                         fontSize: isMobile ? 14 : 26,
                         '&:hover': {
-                            bgcolor: 'rgba(128, 128, 128, 0.55)',
+                            background: 'rgba(255, 255, 255, 0.12)'
                         },
                         zIndex: 2,
                     }}
@@ -252,7 +201,7 @@ function HeroSection({ onCategoryClick }: HeroSectionProps) {
                             initial={{ x: 40, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             exit={{ x: -40, opacity: 0 }}
-                            transition={{ duration: 0.6, ease: "easeInOut" }}
+                            transition={{ duration: 0.8, ease: "easeInOut", }}
                         >
                             {slides[index].buttonText}
                         </motion.span>
@@ -262,12 +211,12 @@ function HeroSection({ onCategoryClick }: HeroSectionProps) {
 
             <Box
                 sx={{
-                    display: isMobile ? 'block': 'none',
+                    display: isMobile ? 'block' : 'none',
                     position: 'absolute',
                     bottom: 0,
                     left: 0,
                     width: '100%',
-                    height: '10%', 
+                    height: '10%',
                     bgcolor: 'background.default',
                     zIndex: 1,
                     borderTop: '6px solid',
