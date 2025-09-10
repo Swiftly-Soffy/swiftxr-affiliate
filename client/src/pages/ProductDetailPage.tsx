@@ -4,12 +4,12 @@ import { useParams } from "react-router-dom";
 import { ProductCard } from "./CataloguePage";
 import { Box, Typography, Stack, Button, Grid } from "@mui/material";
 
-import { getProductSlug, getCategories } from "../api";
+import { getProductSlug, getCategories, getProductCategories } from "../api";
 import type { Product, Category } from "./related/type";
 import Iconify from "../components/Iconify/iconify";
 import { useResponsiveViewContext } from "../components/providers";
 import { getLikedProducts, toggleLikedProduct } from "../utils/Likes";
-
+import SectionHeader from "../components/Global/SectionHeader";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -18,6 +18,16 @@ export default function ProductDetailPage() {
 
     const { slug } = useParams<{ slug: string }>();
     const [product, setProduct] = useState<Product | null>(null);
+    const [categories, setCategories] = useState<Category[]>([]);
+
+    useEffect(() => {
+        getProductCategories().then((data) => {
+            const filtered = data.filter(
+                (c: Category) => c.products && c.products.length > 0
+            );
+            setCategories(filtered);
+        });
+    }, []);
 
     const [liked, setLiked] = useState(false);
 
@@ -76,15 +86,31 @@ export default function ProductDetailPage() {
 
     }, [product]);
 
+    const category =
+        product &&
+        categories.find((c) => c.products.some((p) => p.id === product.id));
+
     if (!product) return <p>Loading...</p>;
 
     return (
-        <Stack component='section' bgcolor='background.default'>
+        <Stack component='section'  sx={{rowGap: "20px"}}>
+            {product && category && (
+                <SectionHeader
+                    route={[
+                        { label: "Home", path: "/" },
+                        {
+                            label: category.name,
+                            path: `/?category=${encodeURIComponent(category.name)}`,
+                        },
+                        { label: product.Name, path: `/products/${product.id}` },
+                    ]}
+                />
+            )}
+
             <Stack spacing={2}
                 sx={{
                     width: 1,
                     height: 1,
-                    p: 3,
                 }}>
 
                 {/* Product Embed */}
@@ -95,7 +121,7 @@ export default function ProductDetailPage() {
                         bgcolor='background.neutral'
                         borderRadius={2}
                         height={400}
-                        overflow="hidden"        
+                        overflow="hidden"
                         display="flex"
                         alignItems="center"
                         justifyContent="center"

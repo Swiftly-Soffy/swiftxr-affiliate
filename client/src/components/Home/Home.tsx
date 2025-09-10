@@ -8,13 +8,27 @@ import CategorySection from "./CategorySection";
 import { getProductCategories } from "../../api";
 import type { Category } from "../../pages/related/type";
 import { Box } from "@mui/material";
-
+import { useLocation } from "react-router-dom";
 
 function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   const catalogueRef = useRef<HTMLDivElement>(null);
+  
+  //BreadCrumb Routes
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryName = params.get("category");
+
+    if (categoryName && categories.length > 0) {
+      const match = categories.find((c) => c.name === categoryName);
+      if (match) setSelectedCategory(match.id);
+    }
+  }, [location.search, categories]);
+
 
   useEffect(() => {
     getProductCategories().then((data) => {
