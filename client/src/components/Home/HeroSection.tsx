@@ -267,7 +267,7 @@ function HeroSection(/*{ onCategoryClick }: HeroSectionProps*/) {
                 }}>
 
                 {/* Frame */}
-                <Box component='img' src={frame} sx={{ display: 'block', zIndex: 0, width: 600 }} />
+                <Box component='img' src={frame} sx={{ display: 'block', zIndex: 0, width: isMobile ? 400 : 600 }} />
 
                 {/* Background image */}
                 <Box
@@ -276,8 +276,8 @@ function HeroSection(/*{ onCategoryClick }: HeroSectionProps*/) {
                     sx={{
                         position: 'absolute',
                         top: '8%',
-                        left: '25.5%',
-                        width: 513,
+                        left: isMobile ? '4%' : '25.5%',
+                        width: isMobile ? 338 : 513,
                         height: 'fit-content',
                         objectFit: 'contain',
                         borderRadius: 4,
@@ -300,13 +300,13 @@ function HeroSection(/*{ onCategoryClick }: HeroSectionProps*/) {
                         transformOrigin: 'center',
                     }}
                     animate={{
-                        scale: [1, 2.8, 2.8, 1, 1],
+                        scale: isMobile ? [1, 1.8, 1.8, 1, 1] : [1, 2.8, 2.8, 1, 1],
                     }}
                     transition={{
                         duration: 8,
                         times: [0, 0.1, 0.5, 0.55, 1],
                         repeat: Infinity,
-                        ease: ['easeOut', 'linear', 'linear', 'linear', 'linear'], // smooth start, then hold
+                        ease: ['easeOut', 'linear', 'linear', 'linear', 'linear'],
                     }}
                 />
 
@@ -331,11 +331,11 @@ function HeroSection(/*{ onCategoryClick }: HeroSectionProps*/) {
                     }}
                     animate={{
                         opacity: [0, 1, 1, 0, 0],
-                        scale: [1, 1, 1, 1, 1],
+                        scale: isMobile ? [0.8, 0.8, 0.8, 0.8, 0.8] : [1, 1, 1, 1, 1],
                     }}
                     transition={{
                         duration: 8,
-                        times: [0, 0.1, 0.5, 0.55, 1],
+                        times: isMobile ? [0, 0.05, 0.5, 0.55, 1]:[0, 0.1, 0.5, 0.55, 1],
                         repeat: Infinity,
                         ease: 'easeInOut',
                     }}
@@ -346,8 +346,22 @@ function HeroSection(/*{ onCategoryClick }: HeroSectionProps*/) {
                     }}>{imagesInframes[selectedIndex].buttonText}</Button>
                     <Typography fontSize={16} fontWeight={400}>{imagesInframes[selectedIndex].description}</Typography>
                 </motion.div>
-            </Box>
 
+
+
+            </Box>
+            <Box
+                sx={{
+                    display: isMobile ? 'block' : 'none',
+                    position: 'absolute',
+                    bottom: 80,
+                    left: 0,
+                    width: '100%',
+                    height: '10%',
+                    bgcolor: 'background.default',
+                    zIndex: 1,
+                }}
+            />
             {/* Carousel Container */}
             {/*< Box
                 sx={{
@@ -424,20 +438,7 @@ function HeroSection(/*{ onCategoryClick }: HeroSectionProps*/) {
             </Box >
             */}
 
-            <Box
-                sx={{
-                    display: isMobile ? 'block' : 'none',
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '10%',
-                    bgcolor: 'background.default',
-                    zIndex: 1,
-                    borderTop: '6px solid',
-                    borderColor: (theme) => alpha(theme.palette.background.paper, 0.7),
-                }}
-            />
+            {/**/}
 
         </Stack >
     );
