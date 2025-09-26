@@ -1,0 +1,13 @@
+export const bg1 = new URL('./bg1.png', import.meta.url);
+export const bg2 = new URL('./bg2.png', import.meta.url);
+export const bg3 = new URL('./bg3.png', import.meta.url);
+export const bg4 = new URL('./bg4.png', import.meta.url);
+export const image1 = new URL('./image1.png', import.meta.url);
+export const image11 = new URL('./image11.png', import.meta.url);
+export const image2 = new URL('./image2.png', import.meta.url);
+export const image22 = new URL('./image22.png', import.meta.url);
+export const image3 = new URL('./image3.png', import.meta.url);
+export const image33 = new URL('./image33.png', import.meta.url);
+export const image4 = new URL('./image4.png', import.meta.url);
+export const image44 = new URL('./image44.png', import.meta.url);
+export const frame = new URL('./frame.png', import.meta.url);

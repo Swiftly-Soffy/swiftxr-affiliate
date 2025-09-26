@@ -11,7 +11,7 @@ function Header() {
         width: 1,
         zIndex: 10,
         textAlign: 'left',
-        color: 'text.primary',
+        color: 'text.neutral',
         letterSpacing: '0.5px',
         py: 2,
         px: 6
